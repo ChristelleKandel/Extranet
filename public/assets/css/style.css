@@ -1,0 +1,60 @@
+
+
+main {
+min-height: 50vh;
+}
+
+h1{
+    color: rgb(47, 79, 79);
+    margin: 5px;
+}
+
+.alert{
+    padding: 10px;
+    color: white;
+    text-align: center;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    &-success{
+        background-color: green;
+    }
+    
+    &-info{
+        background-color: red;
+    }
+}
+
+form{
+    margin-bottom: 20px;
+}
+
+.pin img{
+    transition : transform 0.3s ease-out;
+    &:hover {
+        transform: scale(1.075);
+    }
+}
+
+// Grâce au Scss je rajoute des classes de bootstrap
+
+// .vich-image .form-check{
+//     margin-top: 20px;
+// }
+// .vich-image img{
+//     border-radius: 10px;
+//     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15);
+//     border: rounded 1px 
+// }
+
+
+.vich-image{
+    .form-check{
+        @extend .mt-3;
+    }
+    img{
+        @extend .mb-2, .rounded, .shadow, .img-thumbnail;
+    }
+} 
+
+

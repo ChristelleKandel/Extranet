@@ -1,19 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <title>{% block title %}Bienvenue{% endblock %}</title>
+        <link rel="shortcut icon" href="{{asset('images/picto.jpg')}}" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- si besoin police google font dans assets/app.css sous forme @import> -->
+
+         <!-- Feuilles de style  + ajout de bootstrap que l'on a chargé dans public/assets -->
+        <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+        <!-- + Feuille de style perso créée dans public/assets -->
+        <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 
+        <!-- Fichiers JS + ajout de bootstrap que l'on a chargé dans public/assets-->
+        <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" defer></script>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {# commentaire twig non visible sur le code source contrairement aux commentaires html #}
+        <!-- commentaire html visible dans l'inspecteur -->
+
+        {# Ajout d'un header et d'une navigation via des fichiers créés dans templates/_partials #}
+        {% include "_partials/_header.html.twig" %}
+        {% include "_partials/_nav.html.twig" %}
+        {# Personnalisation de main grâce à bootstrap #}
+        <main role="main" class="container">
+        {% block body %}
+        {% endblock %}
+        </main>
+        {% include "_partials/_footer.html.twig" %}
     </body>
 </html>
