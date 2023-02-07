@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} fiche {% endblock %}
+{% block body %}
+	<div>
+    		<h1>Fiche administrative de {{ user.prenom }} {{ user.nom }} </h1>
+        		<article>
+            		<p>{{ user.nom }} {{ user.prenom }}</p>
+        		</article>
+	<a href="{{ path('app_users') }}">Retour à la liste des salariés</a>
+	</div>
+{% endblock %}
