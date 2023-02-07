@@ -207,6 +207,9 @@ class Users
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $evalRempli = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateSortie = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -976,6 +979,18 @@ class Users
     public function setEvalRempli(?string $evalRempli): self
     {
         $this->evalRempli = $evalRempli;
+
+        return $this;
+    }
+
+    public function getDateSortie(): ?\DateTimeInterface
+    {
+        return $this->dateSortie;
+    }
+
+    public function setDateSortie(?\DateTimeInterface $dateSortie): self
+    {
+        $this->dateSortie = $dateSortie;
 
         return $this;
     }
