@@ -10,7 +10,7 @@
         <article>
             <h2>{{ user.nom }}</h2>
             <p>{{ user.prenom }}</p>
-            <p> lien vers les détails : <a href="{{ path('app_users_details', {'id': user.id}) }}">{{ user.prenom }}</a></p>
+            <p> lien vers les détails : <a href="{{ path('app_users_fiche', {'id': user.id}) }}">{{ user.prenom }}</a></p>
         
         </article>
     {% else  %}

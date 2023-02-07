@@ -9,7 +9,7 @@
     {% for user in users %}
         <article>
             <p>{{ user.nom }} {{ user.prenom }}</p>
-            <p> lien vers les détails : <a href="{{ path('app_users_details', {'id': user.id}) }}">{{ user.prenom }}</a></p>
+            <p> lien vers les détails : <a href="{{ path('app_users_fiche', {'id': user.id}) }}">{{ user.prenom }}</a></p>
         
         </article>
     {% else  %}

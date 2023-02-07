@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
+use App\Entity\Team;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UsersRepository;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 class Users
@@ -45,7 +47,7 @@ class Users
     private ?string $telephone = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateNaissance = null;
+    private ?DateTimeInterface $dateNaissance = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lieuNaissance = null;
@@ -978,5 +980,11 @@ class Users
         $this->evalRempli = $evalRempli;
 
         return $this;
+    }
+        
+    // On crée un fonction pour récupérer le nom complet
+    public function getFullName(): string 
+    {
+        return $this->getPrenom().' '.$this->getNom();
     }
 }
