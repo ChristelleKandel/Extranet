@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UsersController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste de tous les salariés d'Insercall</h1>
+    <h3> Il y a actuellement {{ users|length }} salariés. </h3>
+    {% for user in users %}
+        <article>
+            <p>{{ user.nom }} {{ user.prenom }}</p>
+            <p> lien vers les détails : <a href="{{ path('app_users_fiche', {'id': user.id}) }}">{{ user.prenom }}</a></p>
+        
+        </article>
+    {% else  %}
+        <p> Désolé, pas encore de salariés, n'hésitez pas à en entrer un. </p>
+    
+    {% endfor %}
+    <a href="{{ path('app_users_create') }}">Ajouter un salarié</a> 
+</div>
+{% endblock %}

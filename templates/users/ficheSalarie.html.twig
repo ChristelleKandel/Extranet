@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} fiche {% endblock %}
+{% block body %}
+	<div>
+        <h1>Fiche administrative de {{ user.fullName }} </h1>
+            <article>
+                <p>{{ user.fullName }}</p>
+            </article>
+        {{ form_start(monForm) }}
+            {{ form_widget(monForm) }}
+            <input type="submit" value="Enregistrer les modifications">
+        {{ form_end(monForm) }}
+
+	<a href="{{ path('app_users') }}">Retour à la liste des salariés</a>
+	</div>
+{% endblock %}

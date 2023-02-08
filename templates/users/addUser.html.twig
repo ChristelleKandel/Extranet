@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajouter un salarié{% endblock %}  
+{% block body %}
+    	<h1 class="text-center">Ajouter un salarié</h1>
+ 	{{ form_start(monFormulaire) }}
+        		{{ form_widget(monFormulaire) }}
+        		<input type="submit" value="Ajouter un salarié">
+    	{{ form_end(monFormulaire) }}
+{% endblock %}
