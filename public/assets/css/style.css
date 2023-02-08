@@ -1,19 +1,76 @@
-
+body{
+    font-size: 18px;
+    font-weight: 500;
+}
 
 main {
-min-height: 50vh;
+    min-height: 50vh;
+    }
+    
+    h1{
+        color: rgb(47, 79, 79);
+        margin: 5px;
+    }
+    
+    form{
+        margin-bottom: 20px;
+    }
+    
+    .header a{
+        color: black !important;
+        text-decoration: none !important;
+    }
+
+/* Les boutons de navigations pour ma page*/
+.btnspecial{
+    border-radius: 10px 100px / 120px;
+    width: 130px;
+    padding: 15px;
+}
+.btnspecial:hover{
+    border-radius: 100px 10px / 120px;
+}
+.navigation{
+    font-weight: 600;
+}
+.btn-green{
+    color: white;
+    background: #94c120;
+}
+.btn-green:hover{
+    color: #94c120;
+    background: #d4e4a6;
+    border: #94c120 2px solid;
 }
 
-h1{
-    color: rgb(47, 79, 79);
-    margin: 5px;
+.btn-bleu{
+    color: white;
+    background-color: #04a39e;
+}
+.btn-bleu:hover{
+    color:#04a39e;
+    background-color: #b1d4d0;
+    border: #04a39e 2px solid;
 }
 
-form{
-    margin-bottom: 20px;
+.btn-violet{
+    color: white;
+    background-color: #681239;
+}
+.btn-violet:hover{
+    color:#681239;
+    background-color: #b993a0;
+    border: #681239 2px solid;
 }
 
-.header a{
-    color: black !important;
-    text-decoration: none !important;
+.btn-orange{
+    color: white;
+    background-color: #f39108;
 }
+.btn-orange:hover{
+    color:#f39108;
+    background-color: #fcd6a7;
+    border: #f39108 2px solid;
+}
+
+

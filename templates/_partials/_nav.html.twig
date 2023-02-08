@@ -9,13 +9,16 @@
       <!-- ml auto, remplacé par ms-auto avec bootstrap5, pour mettre le menu à gauche en gardant le logo à droite -->
       <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
+          <a class="nav-link btnspecial btn-violet" aria-current="page" href="{{ path('app_home') }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_users') }}">Salariés</a>
+          <a class="nav-link btnspecial btn-green" href="{{ path('app_users') }}">Salariés</a>
         </li>        
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_home_contact') }}">Contact</a>
+          <a class="nav-link btnspecial btn-bleu" href="{{ path('app_home_contact') }}">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btnspecial btn-orange" href="#">Autre</a>
         </li>
 
         {# Sous-menu déroulant #}
