@@ -994,4 +994,10 @@ class Users
 
         return $this;
     }
+    // On crée un fonction pour récupérer le nom complet
+    public function getFullName(): string 
+    {
+        return $this->getPrenom().' '.$this->getNom();
+    }
+    
 }
