@@ -1,8 +1,3 @@
-/* body{
-    font-size: 18px;
-    font-weight: 500;
-} */
-
 main {
     min-height: 50vh;
     }
@@ -21,7 +16,7 @@ main {
         text-decoration: none;
     }
 
-/* Les boutons de navigations pour ma page*/
+/* Les boutons de navigations*/
 .btnspecial{
     border-radius: 10px 100px / 120px;
     width: 100px;
