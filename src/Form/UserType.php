@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -23,7 +24,7 @@ class UserType extends AbstractType
             ->add('adresse2', null, ['label' => 'Adresse suite'])
             ->add('zipCode', null, ['label' => 'Code postal'])
             ->add('ville')
-            ->add('emailPerso', null, ['label' => 'Email personnel'])
+            ->add('emailPerso', EmailType::class, ['label' => 'Email personnel'])
             ->add('telephone', null, ['label' => 'Téléphone'])
             ->add('dateNaissance', BirthdayType::class)
             ->add('lieuNaissance')
