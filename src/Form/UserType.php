@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Team;
 use App\Entity\Users;
+use App\Repository\TeamRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -76,7 +79,15 @@ class UserType extends AbstractType
             ->add('qpvGrandAvignon')
             ->add('nomQPV')
             ->add('evalRempli')
-            // ->add('teamName')
+            ->add('teamName', EntityType::class, [
+                'class'=>Team::class, 
+                'choice_label'=>'Name', 
+                'label' => 'Nom de la team',
+                'query_builder' => function(TeamRepository $teamrepo){
+                    return $teamrepo->createQueryBuilder('c')
+                    ->orderBy('c.Name', 'ASC');
+                }
+                ])
         ;
     }
 

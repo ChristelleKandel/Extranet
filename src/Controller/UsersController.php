@@ -50,20 +50,10 @@ class UsersController extends AbstractController
     }
 
     #[Route('/users/create', name: 'app_users_create')]
-    public function create(Request $request, EntityManagerInterface $em): Response
+    public function create(Request $request, EntityManagerInterface $em, UsersRepository $UserRepo): Response
     {
         $user = new Users;
-        $form = $this->createFormBuilder($user)
-        ->add('nom', null, ['attr'=> ['autofocus'=>true]])
-        ->add('prenom', null)
-        ->add('sexe', null)
-        ->add('emailInsercall', EmailType::class)
-        ->add('dateEntree', BirthdayType::class)
-        ->add('pseudo')
-        ->add('mdp')
-        // ->add('teamName', null)
-        ->getForm()
-        ;
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             $em->persist($user);
@@ -71,7 +61,7 @@ class UsersController extends AbstractController
             return $this-> redirectToRoute('app_users');
         }
         return $this->render('users/addUser.html.twig', [
-            'monFormulaire' => $form->createView(),
+            'monForm' => $form->createView(),
         ]);
     }
 }
