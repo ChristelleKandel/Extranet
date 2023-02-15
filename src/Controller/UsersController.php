@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Form\UserType;
+use App\Form\NewUserType;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +54,7 @@ class UsersController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em, UsersRepository $UserRepo): Response
     {
         $user = new Users;
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(NewUserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             $em->persist($user);

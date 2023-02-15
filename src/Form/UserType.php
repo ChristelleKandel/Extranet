@@ -4,6 +4,10 @@ namespace App\Form;
 
 use App\Entity\Team;
 use App\Entity\Users;
+use App\Entity\Permis;
+use App\Entity\StatutSocial;
+use App\Entity\BeneficiaireDe;
+use App\Entity\Qualifications;
 use App\Repository\TeamRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,8 +24,19 @@ class UserType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('nomJeuneFille', null, ['label' => 'Nom de jeune fille'])
             ->add('prenom', null, ['label' => 'Prénom'])
+            ->add('teamName', EntityType::class, [
+                'class'=>Team::class, 
+                'choice_label'=>'Name', 
+                'label' => 'Nom de la team',
+                'query_builder' => function(TeamRepository $teamrepo){
+                    return $teamrepo->createQueryBuilder('c')
+                    ->orderBy('c.Name', 'ASC');
+                }
+                ])
+            ->add('emailInsercall', EmailType::class, ['label' => 'Email Insercall'])
+            ->add('pseudo', null, ['label' => 'Pseudo Insercall'])
+            ->add('nomJeuneFille', null, ['label' => 'Nom de jeune fille'])
             ->add('sexe')
             ->add('adresse1', null, ['label' => 'Adresse'])
             ->add('adresse2', null, ['label' => 'Adresse suite'])
@@ -45,19 +60,35 @@ class UserType extends AbstractType
             ->add('idCAF', null, ['label' => 'Identifiant CAF'])
             ->add('reconnaissanceTH', null, ['label' => 'Reconnaissance TH'])
             ->add('nomRefRSA', null, ['label' => 'Nom du référent RSA'])
-            ->add('beneficiaireDe')
+            ->add('beneficiaireDe', EntityType::class, [
+                'class'=>BeneficiaireDe::class, 
+                'choice_label'=>'nomOrganisme', 
+                'label' => 'Bénéficiaire de ',
+                ])
             ->add('organismeRef1', null, ['label' => 'Organisme de référence'])
             ->add('coordonneesRef1', null, ['label' => 'Coordonnées de l\'organisme'])
-            ->add('beneficiaireDe2', null, ['label' => 'Bénéficiaire aussi de'])
+            ->add('beneficiaireDe2', EntityType::class, [
+                'class'=>BeneficiaireDe::class, 
+                'choice_label'=>'nomOrganisme', 
+                'label' => 'Bénéficiaire aussi de ',
+                ])
             ->add('organismeRef2', null, ['label' => 'Organisme de référence'])
             ->add('coordonnesRef2', null, ['label' => 'Coordonnées de l\'organisme'])
             ->add('dateEntree', DateType::class, ['label' => 'Date d\'arrivée'])
             ->add('dateFin1', DateType::class, ['label' => 'Date de sortie prévue'])
             ->add('typeContrat')
-            ->add('statutEntree')
+            ->add('statutEntree', EntityType::class, [
+                'class'=>StatutSocial::class, 
+                'choice_label'=>'nomStatut', 
+                'label' => 'Statut à l\entrée',
+                ])
             ->add('dateRenouvellement', DateType::class, ['label' => 'Date de renouvellement'])
             ->add('dateFin2', DateType::class, ['label' => 'Date de fin du renouvellement'])
-            ->add('qualification')
+            ->add('qualification', EntityType::class, [
+                'class'=>Qualifications::class, 
+                'choice_label'=>'nomQualification', 
+                'label' => 'Qualification chez Insercall',
+                ])
             ->add('situationSortie', TextareaType::class)
             ->add('diplome1')
             ->add('niveau1')
@@ -73,21 +104,16 @@ class UserType extends AbstractType
             ->add('mobilite', TextareaType::class)
             ->add('famille', TextareaType::class)
             ->add('finances', TextareaType::class)
-            ->add('permis')
+            ->add('permis', EntityType::class, [
+                'class'=>Permis::class, 
+                'choice_label'=>'typePermis', 
+                'label' => 'Permis',
+                ])
             ->add('vehicule')
             ->add('notes', TextareaType::class)
             ->add('qpvGrandAvignon')
             ->add('nomQPV')
             ->add('evalRempli')
-            ->add('teamName', EntityType::class, [
-                'class'=>Team::class, 
-                'choice_label'=>'Name', 
-                'label' => 'Nom de la team',
-                'query_builder' => function(TeamRepository $teamrepo){
-                    return $teamrepo->createQueryBuilder('c')
-                    ->orderBy('c.Name', 'ASC');
-                }
-                ])
         ;
     }
 

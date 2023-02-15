@@ -13,13 +13,14 @@
                         {{ form_row(monForm.prenom) }}
                     </div>
                 </div>
-                {{ form_row(monForm.emailPerso) }}
-
-
+                {{ form_row(monForm.emailInsercall) }}
+                {{ form_row(monForm.teamName) }}
+                {{ form_row(monForm.pseudo) }}
+                {{ form_row(monForm.mdp) }}
+                {{ form_row(monForm.dateEntree) }}
+                {{ form_row(monForm.dateSortie) }}
 
                 <button type="submit" class="btn btn-lg btn-primary d-grid gap-2 col-6 mx-auto">Enregistrer</button> 
-
-                {# <p class="mt-5 mb-3 text-center text-muted"> Vous avez déjà un compte? <a href="{{ path('app_login') }}">Merci de vous identifier.</a></p> #}
 
             {{ form_end(monForm) }}
         </div>

@@ -92,13 +92,7 @@ class Users
     private ?string $reconnaissanceTH = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $beneficiaireDe = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $nomRefRSA = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $beneficiaireDe2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $organismeRef1 = null;
@@ -131,9 +125,6 @@ class Users
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $typeContrat = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $statutEntree = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateRenouvellement = null;
 
@@ -142,9 +133,6 @@ class Users
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateFin2 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $qualification = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $situationSortie = null;
@@ -192,9 +180,6 @@ class Users
     private ?string $finances = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $permis = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $vehicule = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -211,6 +196,21 @@ class Users
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateSortie = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?BeneficiaireDe $beneficiaireDe = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?BeneficiaireDe $beneficiaireDe2 = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Permis $permis = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Qualifications $qualification = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?StatutSocial $statutEntree = null;
 
     public function getId(): ?int
     {
@@ -517,18 +517,6 @@ class Users
         return $this;
     }
 
-    public function getBeneficiaireDe(): ?string
-    {
-        return $this->beneficiaireDe;
-    }
-
-    public function setBeneficiaireDe(?string $beneficiaireDe): self
-    {
-        $this->beneficiaireDe = $beneficiaireDe;
-
-        return $this;
-    }
-
     public function getNomRefRSA(): ?string
     {
         return $this->nomRefRSA;
@@ -537,18 +525,6 @@ class Users
     public function setNomRefRSA(?string $nomRefRSA): self
     {
         $this->nomRefRSA = $nomRefRSA;
-
-        return $this;
-    }
-
-    public function getBeneficiaireDe2(): ?string
-    {
-        return $this->beneficiaireDe2;
-    }
-
-    public function setBeneficiaireDe2(?string $beneficiaireDe2): self
-    {
-        $this->beneficiaireDe2 = $beneficiaireDe2;
 
         return $this;
     }
@@ -673,18 +649,6 @@ class Users
         return $this;
     }
 
-    public function getStatutEntree(): ?string
-    {
-        return $this->statutEntree;
-    }
-
-    public function setStatutEntree(?string $statutEntree): self
-    {
-        $this->statutEntree = $statutEntree;
-
-        return $this;
-    }
-
     public function getDateRenouvellement(): ?\DateTimeInterface
     {
         return $this->dateRenouvellement;
@@ -717,18 +681,6 @@ class Users
     public function setDateFin2(?\DateTimeInterface $dateFin2): self
     {
         $this->dateFin2 = $dateFin2;
-
-        return $this;
-    }
-
-    public function getQualification(): ?string
-    {
-        return $this->qualification;
-    }
-
-    public function setQualification(?string $qualification): self
-    {
-        $this->qualification = $qualification;
 
         return $this;
     }
@@ -913,18 +865,6 @@ class Users
         return $this;
     }
 
-    public function getPermis(): ?string
-    {
-        return $this->permis;
-    }
-
-    public function setPermis(?string $permis): self
-    {
-        $this->permis = $permis;
-
-        return $this;
-    }
-
     public function getVehicule(): ?string
     {
         return $this->vehicule;
@@ -1001,6 +941,66 @@ class Users
     public function getFullName(): string 
     {
         return $this->getPrenom().' '.$this->getNom();
+    }
+
+    public function getBeneficiaireDe(): ?BeneficiaireDe
+    {
+        return $this->beneficiaireDe;
+    }
+
+    public function setBeneficiaireDe(?BeneficiaireDe $beneficiaireDe): self
+    {
+        $this->beneficiaireDe = $beneficiaireDe;
+
+        return $this;
+    }
+
+    public function getBeneficiaireDe2(): ?BeneficiaireDe
+    {
+        return $this->beneficiaireDe2;
+    }
+
+    public function setBeneficiaireDe2(?BeneficiaireDe $beneficiaireDe2): self
+    {
+        $this->beneficiaireDe2 = $beneficiaireDe2;
+
+        return $this;
+    }
+
+    public function getPermis(): ?Permis
+    {
+        return $this->permis;
+    }
+
+    public function setPermis(?Permis $permis): self
+    {
+        $this->permis = $permis;
+
+        return $this;
+    }
+
+    public function getQualification(): ?Qualifications
+    {
+        return $this->qualification;
+    }
+
+    public function setQualification(?Qualifications $qualification): self
+    {
+        $this->qualification = $qualification;
+
+        return $this;
+    }
+
+    public function getStatutEntree(): ?StatutSocial
+    {
+        return $this->statutEntree;
+    }
+
+    public function setStatutEntree(?StatutSocial $statutEntree): self
+    {
+        $this->statutEntree = $statutEntree;
+
+        return $this;
     }
 
 }

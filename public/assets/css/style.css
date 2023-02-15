@@ -7,10 +7,7 @@ main {
         margin: 5px;
     }
     
-    form{
-        margin-bottom: 20px;
-    }
-    
+/* les liens du premier header */
     .header a{
         color: black;
         text-decoration: none;
@@ -69,4 +66,7 @@ main {
     border: #f39108 2px solid;
 }
 
-
+/*Le formulaire */
+form{
+    margin-bottom: 20px;
+}
