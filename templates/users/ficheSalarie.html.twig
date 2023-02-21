@@ -2,16 +2,122 @@
 
 {% block title %} fiche {% endblock %}
 {% block body %}
-	<div>
-        <h1>Fiche administrative de {{ user.fullName }} </h1>
-            <article>
-                <p>{{ user.fullName }}</p>
-            </article>
-        {{ form_start(monForm) }}
-            {{ form_widget(monForm) }}
-            <input type="submit" value="Enregistrer les modifications">
-        {{ form_end(monForm) }}
 
-	<a href="{{ path('app_users') }}">Retour à la liste des salariés</a>
-	</div>
+<div class="container">
+    <h1 class="text-center">Fiche administrative de {{ user.fullName }} </h1>
+    {{ form_start(monForm, {'attr': {'class': 'my-5', 'novalidate': 'novalidate'}}) }}
+
+        {# Section Insercall #}
+        <div class="bg-orange my-3 p-3 rounded">
+            <h2 class="text-center">INSERCALL</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(monForm.teamName) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(monForm.pseudo) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(monForm.emailInsercall) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{ form_row(monForm.dateEntree) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(monForm.dateFin1) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{ form_row(monForm.dateRenouvellement) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(monForm.dateFin2) }}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-lg btn-orange d-grid gap-2 col-6 mx-auto">Enregistrer les modifications</button>
+
+        {# Section Etat Civil #}
+        <div class="bg-bleu my-3 p-3 rounded">
+            <h2 class="text-center"> ETAT CIVIL </h2>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(monForm.nom) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(monForm.nomJeuneFille) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(monForm.prenom) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(monForm.adresse1) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(monForm.adresse2) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(monForm.zipCode) }}
+                </div>
+                <div class="col-md-8">
+                    {{ form_row(monForm.ville) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(monForm.emailPerso) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(monForm.telephone) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(monForm.dateNaissance) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(monForm.lieuNaissance) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(monForm.nationalite) }}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-lg btn-bleu d-grid gap-2 col-6 mx-auto">Enregistrer les modifications</button>
+
+        {# Section Allocations et Prestations #}
+        <div class="bg-orange my-3 p-3 rounded">
+            <h2 class="text-center">Allocations et Prestations </h2>
+
+            {{ form_row(monForm.CMU) }}
+            {{ form_row(monForm.logement) }}
+        </div>
+        <button type="submit" class="btn btn-lg btn-orange d-grid gap-2 col-6 mx-auto">Enregistrer les modifications</button>
+
+        {# Section Diplômes #}
+        <div class="bg-vert my-3 p-3 rounded">
+            <h2 class="text-center">DIPLOMES</h2>
+
+            {{ form_row(monForm.diplome1) }}
+        </div>
+        <button type="submit" class="btn btn-lg btn-green d-grid gap-2 col-6 mx-auto">Enregistrer les modifications</button>
+
+        {# Section Sortie #}
+        <div class="bg-violet my-3 p-3 rounded">
+            <h2 class="text-center">SORTIE</h2>
+            {{ form_row(monForm.situationSortie) }}
+            {{ form_row(monForm.notes) }}
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-violet d-grid gap-2 col-6 mx-auto">Enregistrer les modifications</button> 
+    {{ form_end(monForm) }}
+    <a href="{{ path('app_users') }}">Retour à la liste des salariés</a>
+</div>
 {% endblock %}

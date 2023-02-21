@@ -6,6 +6,43 @@ main {
         color: rgb(47, 79, 79);
         margin: 5px;
     }
+
+/* Les couleurs Insercall */
+
+.bg-violet{
+    color:#681239 !important;
+    background-color: #b993a0;
+}
+.bg-vert{
+    color: #94c120 !important;
+    background: #d4e4a6;
+}
+.bg-bleu{
+    color:#04a39e !important;
+    background-color: #b1d4d0;
+}
+.bg-orange{
+    color:#f39108 !important;
+    background-color: #fcd6a7;
+}
+
+[data-color="monViolet"]{
+    color: white !important;
+    background-color: #681239 !important;
+}
+[data-color="monVert"]{
+    color: white !important;
+    background: #94c120 !important;
+}
+[data-color="monBleu"]{
+    color: white !important;
+    background-color: #04a39e !important;
+}
+[data-color="monOrange"]{
+    color:white !important;
+    background-color: #f39108 !important;
+}
+
     
 /* les liens du premier header */
     .header a{

@@ -2,27 +2,37 @@
 {% block title %}Ajouter un salarié{% endblock %}  
 {% block body %}
 <div class="row">
-        <div class="col-md-6 mx-auto"> 
-            <h1>Ajouter un salarié</h1>
-            {{ form_start(monForm, {'attr': {'class': 'my-5'}}) }}
-                <div class="row">
-                    <div class="col-md-6">
-                        {{ form_row(monForm.nom) }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ form_row(monForm.prenom) }}
-                    </div>
+    <div class="col-md-6 mx-auto"> 
+        <h1>Ajouter un salarié</h1>
+        {{ form_start(monForm, {'attr': {'class': 'my-5'}}) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(monForm.nom) }}
                 </div>
-                {{ form_row(monForm.emailInsercall) }}
-                {{ form_row(monForm.teamName) }}
-                {{ form_row(monForm.pseudo) }}
-                {{ form_row(monForm.mdp) }}
-                {{ form_row(monForm.dateEntree) }}
-                {{ form_row(monForm.dateSortie) }}
-
-                <button type="submit" class="btn btn-lg btn-primary d-grid gap-2 col-6 mx-auto">Enregistrer</button> 
-
-            {{ form_end(monForm) }}
-        </div>
+                <div class="col-md-6">
+                    {{ form_row(monForm.prenom) }}
+                </div>
+            </div>
+                        <div class="row">
+                <div class="col-md-2">
+                    {{ form_row(monForm.sexe) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(monForm.teamName) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(monForm.qualification) }}
+                </div>
+            </div>
+            
+            
+            {{ form_row(monForm.emailInsercall) }}
+            {{ form_row(monForm.pseudo) }}
+            {{ form_row(monForm.mdp) }}
+            {{ form_row(monForm.dateEntree) }}
+            {{ form_row(monForm.dateFin1) }}
+            <button type="submit" class="btn btn-lg btn-primary d-grid gap-2 col-6 mx-auto">Enregistrer</button> 
+        {{ form_end(monForm) }}
     </div>
+</div>
 {% endblock %}

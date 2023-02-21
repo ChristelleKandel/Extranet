@@ -197,19 +197,19 @@ class Users
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateSortie = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     private ?BeneficiaireDe $beneficiaireDe = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     private ?BeneficiaireDe $beneficiaireDe2 = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     private ?Permis $permis = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     private ?Qualifications $qualification = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     private ?StatutSocial $statutEntree = null;
 
     public function getId(): ?int

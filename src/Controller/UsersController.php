@@ -53,7 +53,12 @@ class UsersController extends AbstractController
     #[Route('/users/create', name: 'app_users_create')]
     public function create(Request $request, EntityManagerInterface $em, UsersRepository $UserRepo): Response
     {
+        //Création d'un nouvel objet User
         $user = new Users;
+
+        //Implémentation de ma date d'arrivée (aujourd'hui par défaut) 
+        // $user->setDateEntree(new \DateTimeImmutable('now'));
+
         $form = $this->createForm(NewUserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 

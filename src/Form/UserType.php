@@ -23,28 +23,42 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('prenom', null, ['label' => 'Prénom'])
+            ->add('nom', null, ['disabled'=> true])
+            ->add('prenom', null, ['label' => 'Prénom', 'disabled'=> true])
             ->add('teamName', EntityType::class, [
                 'class'=>Team::class, 
                 'choice_label'=>'Name', 
                 'label' => 'Nom de la team',
-                'query_builder' => function(TeamRepository $teamrepo){
-                    return $teamrepo->createQueryBuilder('c')
-                    ->orderBy('c.Name', 'ASC');
-                }
+                'disabled'=> true,
+                'choice_attr' => [
+                    '0' => ['data-color' => "monBleu"],
+                    '1' => ['data-color' => "monOrange"],
+                    '2' => ['data-color' => 'monVert'],
+                    '3' => ['data-color' => "monViolet"]
+                ],
                 ])
-            ->add('emailInsercall', EmailType::class, ['label' => 'Email Insercall'])
-            ->add('pseudo', null, ['label' => 'Pseudo Insercall'])
+            ->add('emailInsercall', EmailType::class, ['label' => 'Email Insercall', 'disabled'=> true])
+            ->add('pseudo', null, [
+                'label' => 'Pseudo Insercall',
+                'attr' => array ('readonly' => true)
+                ])
+            ->add('dateEntree', null, [
+                'widget' => 'single_text',
+                'disabled'=> true, 
+                'label' => 'Date d\'arrivée',
+            ])
+            ->add('dateFin1', null, [
+                'label' => 'Date de sortie prévue',
+                'disabled'=> true,
+                'widget' => 'single_text'])
             ->add('nomJeuneFille', null, ['label' => 'Nom de jeune fille'])
-            ->add('sexe')
             ->add('adresse1', null, ['label' => 'Adresse'])
             ->add('adresse2', null, ['label' => 'Adresse suite'])
             ->add('zipCode', null, ['label' => 'Code postal'])
             ->add('ville')
             ->add('emailPerso', EmailType::class, ['label' => 'Email personnel'])
             ->add('telephone', null, ['label' => 'Téléphone'])
-            ->add('dateNaissance', BirthdayType::class)
+            ->add('dateNaissance', BirthdayType::class, ['label' => 'Date de naissance', 'required' => false, 'by_reference' => true])
             ->add('lieuNaissance')
             ->add('nationalite')
             ->add('situationFamille')
@@ -54,7 +68,7 @@ class UserType extends AbstractType
             ->add('CMUC')
             ->add('dateFinCMUC')
             ->add('idPoleEmploi', null, ['label' => 'Identifiant Pôle Emploi'])
-            ->add('datePE', DateType::class, ['label' => 'Inscription à Pôle Emploi'])
+            ->add('datePE', DateType::class, ['label' => 'Inscription à Pôle Emploi', 'required' => false, 'by_reference' => true])
             ->add('nomConseillerPE', null, ['label' => 'Conseiller Pôle Emploi'])
             ->add('coordonneesPE', null, ['label' => 'Coordonnées Pôle Emploi'])
             ->add('idCAF', null, ['label' => 'Identifiant CAF'])
@@ -82,14 +96,14 @@ class UserType extends AbstractType
                 'choice_label'=>'nomStatut', 
                 'label' => 'Statut à l\entrée',
                 ])
-            ->add('dateRenouvellement', DateType::class, ['label' => 'Date de renouvellement'])
-            ->add('dateFin2', DateType::class, ['label' => 'Date de fin du renouvellement'])
+            ->add('dateRenouvellement', DateType::class, ['label' => 'Date de renouvellement', 'required' => false, 'by_reference' => true])
+            ->add('dateFin2', DateType::class, ['label' => 'Date de fin du renouvellement', 'required' => false, 'by_reference' => true])
             ->add('qualification', EntityType::class, [
                 'class'=>Qualifications::class, 
                 'choice_label'=>'nomQualification', 
                 'label' => 'Qualification chez Insercall',
                 ])
-            ->add('situationSortie', TextareaType::class)
+            ->add('situationSortie', TextareaType::class, ['required' => false])
             ->add('diplome1')
             ->add('niveau1')
             ->add('obtenu')
@@ -99,7 +113,7 @@ class UserType extends AbstractType
             ->add('diplome3')
             ->add('niveau3')
             ->add('obtenu3')
-            ->add('logement', TextareaType::class)
+            ->add('logement', TextareaType::class, ['required' => false])
             ->add('sante', TextareaType::class)
             ->add('mobilite', TextareaType::class)
             ->add('famille', TextareaType::class)
