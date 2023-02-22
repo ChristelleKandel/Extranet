@@ -9,12 +9,15 @@ use App\Entity\StatutSocial;
 use App\Entity\BeneficiaireDe;
 use App\Entity\Qualifications;
 use App\Repository\TeamRepository;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -47,10 +50,24 @@ class UserType extends AbstractType
                 'disabled'=> true, 
                 'label' => 'Date d\'arrivée',
             ])
-            ->add('dateFin1', null, [
-                'label' => 'Date de sortie prévue',
-                'disabled'=> true,
-                'widget' => 'single_text'])
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+                //récupération du formulaire
+                $form = $event->getForm();
+                //récupération des datas du formulaire
+                $data = $event->getData();
+                //récupération de la date d'entrée
+                $arrivee = $data->getDateEntree();
+                //calcul de la date de sortie
+                $sortie = $arrivee->modify('+ 4months - 1day');
+                //enregistrement de la date de sortie avec le setter et affichage avec data-> dans le add
+                $data->setDateFin1($sortie);
+                // création du champ
+                $form->add('dateFin1', null, [
+                    'label' => 'Date de fin du premier contrat',
+                    'widget' => 'single_text',
+                    'data' => $sortie
+                ]);
+            })
             ->add('nomJeuneFille', null, ['label' => 'Nom de jeune fille'])
             ->add('adresse1', null, ['label' => 'Adresse'])
             ->add('adresse2', null, ['label' => 'Adresse suite'])
@@ -59,6 +76,26 @@ class UserType extends AbstractType
             ->add('emailPerso', EmailType::class, ['label' => 'Email personnel'])
             ->add('telephone', null, ['label' => 'Téléphone'])
             ->add('dateNaissance', BirthdayType::class, ['label' => 'Date de naissance', 'required' => false, 'by_reference' => true])
+            
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+                //récupération du formulaire
+                $form = $event->getForm();
+                //récupération des datas du formulaire
+                $data = $event->getData();
+                //récupération dans les data de DateAge grâce à son getter getDateAge()
+                $age = $data->getAge();
+                // dd($age);
+                // création du champ
+                $form->add('age', null, [
+                    'label' => 'Age',
+                    'data' => $age,
+                    'mapped' => false,
+                    'disabled'=> true
+                ]);
+            })
+            
+            
+            // ->add('age', null, ['mapped' => false, 'disabled'=> true])
             ->add('lieuNaissance')
             ->add('nationalite')
             ->add('situationFamille')
@@ -78,6 +115,7 @@ class UserType extends AbstractType
                 'class'=>BeneficiaireDe::class, 
                 'choice_label'=>'nomOrganisme', 
                 'label' => 'Bénéficiaire de ',
+                'placeholder' => "Choisir",
                 ])
             ->add('organismeRef1', null, ['label' => 'Organisme de référence'])
             ->add('coordonneesRef1', null, ['label' => 'Coordonnées de l\'organisme'])
@@ -85,23 +123,44 @@ class UserType extends AbstractType
                 'class'=>BeneficiaireDe::class, 
                 'choice_label'=>'nomOrganisme', 
                 'label' => 'Bénéficiaire aussi de ',
+                'placeholder' => "Choisir",
                 ])
             ->add('organismeRef2', null, ['label' => 'Organisme de référence'])
             ->add('coordonnesRef2', null, ['label' => 'Coordonnées de l\'organisme'])
             ->add('dateEntree', DateType::class, ['label' => 'Date d\'arrivée'])
-            ->add('dateFin1', DateType::class, ['label' => 'Date de sortie prévue'])
             ->add('typeContrat')
             ->add('statutEntree', EntityType::class, [
                 'class'=>StatutSocial::class, 
                 'choice_label'=>'nomStatut', 
                 'label' => 'Statut à l\entrée',
+                'placeholder' => "Choisir",
                 ])
-            ->add('dateRenouvellement', DateType::class, ['label' => 'Date de renouvellement', 'required' => false, 'by_reference' => true])
-            ->add('dateFin2', DateType::class, ['label' => 'Date de fin du renouvellement', 'required' => false, 'by_reference' => true])
+            ->add('dateRenouvellement', DateType::class, ['widget' => 'single_text', 'label' => 'Date de renouvellement', 'required' => false, 'by_reference' => true])
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+                //récupération du formulaire
+                $form = $event->getForm();
+                //récupération des datas du formulaire
+                $data = $event->getData();
+                //creation de la date d'entrée à aujourd'hui
+                $renouvel = $data->getDateRenouvellement();
+                //calcul de la date de fin
+                $fin = $renouvel->modify('+ 4months - 1day');
+                //enregistrement de la date de fin avec le setter et affichage avec data-> dans le add
+                $data->setDateFin2($fin);
+                // création du champ
+                $form->add('dateFin2', null, [
+                    'label' => 'Date de fin du renouvellement',
+                    'widget' => 'single_text',
+                    'data' => $fin,
+                    'required' => false, 
+                    'by_reference' => true
+                ]);
+            })
             ->add('qualification', EntityType::class, [
                 'class'=>Qualifications::class, 
                 'choice_label'=>'nomQualification', 
                 'label' => 'Qualification chez Insercall',
+                'disabled' => true,
                 ])
             ->add('situationSortie', TextareaType::class, ['required' => false])
             ->add('diplome1')
@@ -122,6 +181,7 @@ class UserType extends AbstractType
                 'class'=>Permis::class, 
                 'choice_label'=>'typePermis', 
                 'label' => 'Permis',
+                'placeholder' => "Choisir",
                 ])
             ->add('vehicule')
             ->add('notes', TextareaType::class)

@@ -38,6 +38,7 @@ class UsersController extends AbstractController
     public function createFiche(Users $user, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(UserType::class, $user);
+        // dd($form);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             $em->persist($user);
@@ -48,6 +49,11 @@ class UsersController extends AbstractController
             'user' => $user,
             'monForm' => $form->createView(),
         ]);
+        //    // OU on utilise renderForm qui fait directement le createView():
+        // return $this->renderForm('users/ficheSalarie.html.twig', [
+        //     'user' => $user,
+        //     'monForm' => $form
+        // ]);
     }
 
     #[Route('/users/create', name: 'app_users_create')]

@@ -30,7 +30,7 @@ class NewUserType extends AbstractType
             ])
             ->add('teamName', EntityType::class, [
                 'class'=>Team::class, 
-                'choice_label'=>'Name', 
+                'choice_label'=> fn($team) =>  $team->getNiveau() . ' - ' . $team->getName(), 
                 'label' => 'Nom de la team',
                 'choice_attr' => [
                     '0' => ['data-color' => "monBleu"],
@@ -51,32 +51,6 @@ class NewUserType extends AbstractType
                 'label' => 'Date d\'arrivée',
                 'widget' => 'single_text'
                 ])
-            //Je remplis mon champ dateFin1 à partir du champ dateEntree grâce à un listener
-            // ->add('dateFin1', null, [
-            //     'label' => 'Date de sortie prévue',
-            //     'widget' => 'single_text'
-            //     ])
-                //A CORRIGER pour une mise à jour dynamique avec JS (car met la date du jour + 4 mois une seule fois)
-            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
-                //récupération du formulaire
-                $form = $event->getForm();
-                //récupération des datas du formulaire
-                $data = $event->getData();
-                //creation de la date d'entrée à aujourd'hui
-                $data->setDateEntree(new \DateTimeImmutable('now'));
-                //récupération dans les data de DateEntree grâce à son getter getDateEntree()
-                $arrivee = $data->getDateEntree();
-                //calcul de la date de sortie
-                $sortie = $arrivee->modify('+ 4months - 1day');
-                //enregistrement de la date de sortie avec le setter ou directement avec data-> dans le add
-                // $data->setDateFin1($sortie);
-                // création du champ
-                $form->add('dateFin1', null, [
-                    'label' => 'Date de sortie prévue',
-                    'widget' => 'single_text',
-                    'data' => $sortie
-                ]);
-            })
         ;
     }
 
