@@ -49,7 +49,7 @@ class UserType extends AbstractType
             ->add('dateEntree', null, [
                 'widget' => 'single_text',
                 'disabled'=> true, 
-                'label' => 'Date d\'arrivée : ',
+                'label' => 'Date d\'arrivée',
             ])
             ->add('dateFin1', null, [
                 'label' => 'Date de fin du premier contrat',
@@ -105,12 +105,12 @@ class UserType extends AbstractType
             ->add('nationalite')
             ->add('situationFamille')
             ->add('nbEnfants')
-            ->add('securiteSociale')
+            ->add('securiteSociale', null, ['label' => 'Numéro de Sécurité Sociale'])
             ->add('CMU')
             ->add('CMUC')
-            ->add('dateFinCMUC')
+            ->add('dateFinCMUC', null, ['widget' => 'single_text'])
             ->add('idPoleEmploi', null, ['label' => 'Identifiant Pôle Emploi'])
-            ->add('datePE', DateType::class, ['label' => 'Inscription à Pôle Emploi', 'required' => false, 'by_reference' => true])
+            ->add('datePE',null, ['label' => 'Inscription à Pôle Emploi', 'by_reference' => true, 'widget' => 'single_text'])
             ->add('nomConseillerPE', null, ['label' => 'Conseiller Pôle Emploi'])
             ->add('coordonneesPE', null, ['label' => 'Coordonnées Pôle Emploi'])
             ->add('idCAF', null, ['label' => 'Identifiant CAF'])
@@ -200,7 +200,7 @@ class UserType extends AbstractType
             ->add('notes', TextareaType::class)
             ->add('qpvGrandAvignon')
             ->add('nomQPV')
-            ->add('evalRempli')
+            ->add('evalRempli', null, ['label' => ' ', 'attr' =>['hidden' => true]])
         ;
     }
 

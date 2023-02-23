@@ -5,6 +5,10 @@
 {% block body %}
 <div class="container">
     <h1>Affichage de tous les salariés actuels d'Insercall</h1>
+    </br>
+    <div class="lien btn btn-lg btn-violet d-grid gap-2 col-6 mx-auto"><a href="{{ path('app_users_create') }}">Ajouter un salarié</a></div>
+
+{# Calculer la liste actuelle =  tous les salariés - ceux qui sont partis #}
     {# <p> Il y a actuellement {{ users|length }} salariés. </p> #}
     {% for user in users %}
         <article>
@@ -14,9 +18,9 @@
         
         </article>
     {% else  %}
-        <p> Désolé, pas encore de salariés, n'hésitez pas à en entrer un. </p>
+        <p> Désolé, pas encore de salariés, n'hésitez pas à en enregistrer un. </p>
     
-    {% endfor %}
-    <a href="{{ path('app_users_create') }}">Ajouter un salarié</a> 
+    {% endfor %} 
+    <div class="lien btn btn-lg btn-violet d-grid gap-2 col-6 mx-auto"><a href="{{ path('app_users_create') }}">Ajouter un salarié</a></div>
 </div>
 {% endblock %}

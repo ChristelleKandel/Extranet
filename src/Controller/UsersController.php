@@ -43,7 +43,7 @@ class UsersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) { 
             $em->persist($user);
             $em->flush();
-            return $this-> redirectToRoute('app_users');
+            $this->addFlash('success', 'Fiche modifiée avec succès!');
         }
         return $this->render('users/ficheSalarie.html.twig', [
             'user' => $user,
