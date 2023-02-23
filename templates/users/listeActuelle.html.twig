@@ -10,6 +10,10 @@
 
 {# Calculer la liste actuelle =  tous les salariés - ceux qui sont partis #}
     {# <p> Il y a actuellement {{ users|length }} salariés. </p> #}
+
+    Nom / Prénom / Niveau / Qualification / Date d'arrivée
+    Classer par Niveau, Qualification, Prénom, Date d'arrivée
+    Rechercher un salarié par son nom, Afficher la liste des salariés d'une qualification
     {% for user in users %}
         <article>
             <h2>{{ user.nom }}</h2>

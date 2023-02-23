@@ -150,7 +150,11 @@ class UserType extends AbstractType
                 //récupération des datas du formulaire
                 $data = $event->getData();
                 //creation de la date de renouvellement (sans toucher à la date d'entrée donc avec new)
-                $renouvel = new DateTime($data->getDateRenouvellement()->format('Y-m-d'));
+                if($data->getDateRenouvellement()!= null){
+                    $renouvel = new DateTime($data->getDateRenouvellement()->format('Y-m-d'));
+                }else{
+                    $renouvel = null;
+                }
                 //calcul de la date de fin
                 if($renouvel != null){
                     $fin = $renouvel->modify('+ 4months - 1day');
