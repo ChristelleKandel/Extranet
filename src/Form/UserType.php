@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use DateTime;
 use App\Entity\Team;
 use App\Entity\Users;
 use App\Entity\Permis;
@@ -48,15 +49,21 @@ class UserType extends AbstractType
             ->add('dateEntree', null, [
                 'widget' => 'single_text',
                 'disabled'=> true, 
-                'label' => 'Date d\'arrivée',
+                'label' => 'Date d\'arrivée : ',
             ])
+            ->add('dateFin1', null, [
+                'label' => 'Date de fin du premier contrat',
+                'disabled'=> true, 
+                'widget' => 'single_text',
+                ])
+
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
                 //récupération du formulaire
                 $form = $event->getForm();
                 //récupération des datas du formulaire
                 $data = $event->getData();
-                //récupération de la date d'entrée
-                $arrivee = $data->getDateEntree();
+                //creation de la date de renouvellement (sans toucher à la date d'entrée donc avec new)
+                $arrivee =  new DateTime($data->getDateEntree()->format('Y-m-d'));
                 //calcul de la date de sortie
                 $sortie = $arrivee->modify('+ 4months - 1day');
                 //enregistrement de la date de sortie avec le setter et affichage avec data-> dans le add
@@ -65,6 +72,7 @@ class UserType extends AbstractType
                 $form->add('dateFin1', null, [
                     'label' => 'Date de fin du premier contrat',
                     'widget' => 'single_text',
+                    'disabled'=> true,
                     'data' => $sortie
                 ]);
             })
@@ -93,9 +101,6 @@ class UserType extends AbstractType
                     'disabled'=> true
                 ]);
             })
-            
-            
-            // ->add('age', null, ['mapped' => false, 'disabled'=> true])
             ->add('lieuNaissance')
             ->add('nationalite')
             ->add('situationFamille')
@@ -127,7 +132,6 @@ class UserType extends AbstractType
                 ])
             ->add('organismeRef2', null, ['label' => 'Organisme de référence'])
             ->add('coordonnesRef2', null, ['label' => 'Coordonnées de l\'organisme'])
-            ->add('dateEntree', DateType::class, ['label' => 'Date d\'arrivée'])
             ->add('typeContrat')
             ->add('statutEntree', EntityType::class, [
                 'class'=>StatutSocial::class, 
@@ -135,14 +139,18 @@ class UserType extends AbstractType
                 'label' => 'Statut à l\entrée',
                 'placeholder' => "Choisir",
                 ])
-            ->add('dateRenouvellement', DateType::class, ['widget' => 'single_text', 'label' => 'Date de renouvellement', 'required' => false, 'by_reference' => true])
+            ->add('dateRenouvellement', DateType::class, [
+                'widget' => 'single_text', 
+                'label' => 'Date de renouvellement', 
+                'required' => false, 
+                'by_reference' => true])
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
                 //récupération du formulaire
                 $form = $event->getForm();
                 //récupération des datas du formulaire
                 $data = $event->getData();
-                //creation de la date d'entrée à aujourd'hui
-                $renouvel = $data->getDateRenouvellement();
+                //creation de la date de renouvellement (sans toucher à la date d'entrée donc avec new)
+                $renouvel = new DateTime($data->getDateRenouvellement()->format('Y-m-d'));
                 //calcul de la date de fin
                 if($renouvel != null){
                     $fin = $renouvel->modify('+ 4months - 1day');
@@ -157,7 +165,8 @@ class UserType extends AbstractType
                     'widget' => 'single_text',
                     'data' => $fin,
                     'required' => false, 
-                    'by_reference' => true
+                    'by_reference' => true,
+                    'disabled'=> true,
                 ]);
             })
             ->add('qualification', EntityType::class, [
