@@ -144,7 +144,11 @@ class UserType extends AbstractType
                 //creation de la date d'entrée à aujourd'hui
                 $renouvel = $data->getDateRenouvellement();
                 //calcul de la date de fin
-                $fin = $renouvel->modify('+ 4months - 1day');
+                if($renouvel != null){
+                    $fin = $renouvel->modify('+ 4months - 1day');
+                }else{
+                    $fin = null;
+                }
                 //enregistrement de la date de fin avec le setter et affichage avec data-> dans le add
                 $data->setDateFin2($fin);
                 // création du champ

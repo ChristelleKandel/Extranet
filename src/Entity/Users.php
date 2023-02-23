@@ -1005,9 +1005,13 @@ class Users
 
     //Calcul de l'age du salarié en fonction de la date de naissance
     public function getAge(){
-        $now = new \DateTime('now'); // date actuelle
-        // $age = $now->diff($this->dateNaissance);
-        return $now->diff($this->getDateNaissance())->format('%y');
+        if ($this->getDateNaissance() != null){
+            $now = new \DateTime('now'); // date actuelle
+            // $age = $now->diff($this->dateNaissance);
+            return $now->diff($this->getDateNaissance())->format('%y');
+        }else{
+            return null;
+        }
     }
 
 }
