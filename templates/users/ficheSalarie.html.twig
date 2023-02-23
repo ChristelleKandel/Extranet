@@ -5,6 +5,8 @@
 
 <div class="container">
     <h1 class="text-center">Fiche administrative de {{ user.fullName }} </h1>
+    <p><i class="fa-solid fa-lightbulb"></i> Ceci est un formulaire unique, lors d'un click sur un bouton "Enregistrer", TOUTES les informations sont prises en compte. </br>
+    Les champs peuvent rester vides pour être remplis ultérieurement.
     {{ form_start(monForm, {'attr': {'class': 'my-5', 'novalidate': 'novalidate'}}) }}
 
         {# Section Insercall #}
