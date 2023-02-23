@@ -204,6 +204,11 @@ class UserType extends AbstractType
             ->add('notes', TextareaType::class)
             ->add('qpvGrandAvignon')
             ->add('nomQPV')
+            ->add('dateSortie', null, [
+                'widget' => 'single_text', 
+                'label' => 'Date de sortie effective', 
+                'required' => false, 
+                'by_reference' => true])
             ->add('evalRempli', null, ['label' => ' ', 'attr' =>['hidden' => true]])
         ;
     }

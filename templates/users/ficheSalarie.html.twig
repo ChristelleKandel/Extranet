@@ -267,7 +267,14 @@
         {# Section Sortie #}
         <div class="bg-bleu my-3 p-3 rounded">
             <h2 class="text-center">SORTIE</h2>
-            {{ form_row(monForm.situationSortie) }}
+            <div class="row">
+                <div class="col-md-2">
+                    {{ form_row(monForm.dateSortie) }}
+                </div>
+                <div class="col-md-10">
+                    {{ form_row(monForm.situationSortie) }}
+                </div>
+            </div>
             {{ form_row(monForm.notes) }}
         </div>
 

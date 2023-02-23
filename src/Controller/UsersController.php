@@ -26,11 +26,11 @@ class UsersController extends AbstractController
         ]);
     }
 
-    #[Route('/users', name: 'app_users_actuels')]
+    #[Route('/users/actuels', name: 'app_users_actuels')]
     public function liste(UsersRepository $repo): Response
     {
         return $this->render('users/listeActuelle.html.twig', [
-            'users' => $repo->findBy([‘dateSortie’=>’null‘]),
+            'users' => $repo->findBy(['dateSortie' => null]),
         ]);
     }
     

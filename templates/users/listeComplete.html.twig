@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container">
     <h1>Liste de tous les salariés d'Insercall</h1>
-    <h3> Il y a actuellement {{ users|length }} salariés. </h3>
+    <h3> Salariés présents et passés:  {{ users|length }} salariés. </h3>
     {% for user in users %}
         <article>
             <p>{{ user.nom }} {{ user.prenom }}</p>
