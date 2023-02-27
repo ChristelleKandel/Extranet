@@ -63,9 +63,17 @@ class UserType extends AbstractType
                 //récupération des datas du formulaire
                 $data = $event->getData();
                 //creation de la date de renouvellement (sans toucher à la date d'entrée donc avec new)
-                $arrivee =  new DateTime($data->getDateEntree()->format('Y-m-d'));
+                if(null !== $data->getDateEntree()){
+                    $arrivee =  new DateTime($data->getDateEntree()->format('Y-m-d'));
+                }else{
+                    $arrivee = null;
+                }
                 //calcul de la date de sortie
-                $sortie = $arrivee->modify('+ 4months - 1day');
+                if($arrivee != null){
+                    $sortie = $arrivee->modify('+ 4months - 1day');
+                }else{
+                    $sortie = null;
+                }
                 //enregistrement de la date de sortie avec le setter et affichage avec data-> dans le add
                 $data->setDateFin1($sortie);
                 // création du champ
@@ -150,7 +158,8 @@ class UserType extends AbstractType
                 //récupération des datas du formulaire
                 $data = $event->getData();
                 //creation de la date de renouvellement (sans toucher à la date d'entrée donc avec new)
-                if($data->getDateRenouvellement()!= null){
+                // if($data->getDateRenouvellement()!= null){
+                if(null !== $data->getDateRenouvellement()){
                     $renouvel = new DateTime($data->getDateRenouvellement()->format('Y-m-d'));
                 }else{
                     $renouvel = null;
