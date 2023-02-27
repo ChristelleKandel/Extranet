@@ -34,12 +34,6 @@ class UserType extends AbstractType
                 'choice_label'=>'Name', 
                 'label' => 'Nom de la team',
                 'disabled'=> true,
-                'choice_attr' => [
-                    '0' => ['data-color' => "monBleu"],
-                    '1' => ['data-color' => "monOrange"],
-                    '2' => ['data-color' => 'monVert'],
-                    '3' => ['data-color' => "monViolet"]
-                ],
                 ])
             ->add('emailInsercall', EmailType::class, ['label' => 'Email Insercall', 'disabled'=> true])
             ->add('pseudo', null, [

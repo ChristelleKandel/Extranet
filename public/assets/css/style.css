@@ -2,9 +2,10 @@ main {
     min-height: 50vh;
     }
     
-h1{
-    color: #681239;
+h1, .h1{
+    color: #681239 !important;
     margin: 20px;
+    font-size: 2.5rem;
 }
 
 /* Les couleurs Insercall */
@@ -49,12 +50,21 @@ h1{
     color: black;
     text-decoration: none;
 }
-.lien a{
+.btn a{
     color: white;
     text-decoration: none;
 }
-.lien a:hover{
+.btn-violet a:hover{
     color: #681239;
+}
+.btn-green a:hover{
+    color: #94c120;
+}
+.btn-bleu a:hover{
+    color: #04a39e;
+}
+.btn-orange a:hover{
+    color: #f39108;
 }
 
 /* Les boutons de navigations*/

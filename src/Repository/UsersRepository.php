@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Team;
 use App\Entity\Users;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Qualifications;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Users>
@@ -37,6 +39,41 @@ class UsersRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+    * @return Users[] Returns an array of Users objects
+    */
+    public function findByQualification(Qualifications $qualification): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.qualification = :qualif')
+            ->setParameter('qualif', $qualification)
+            ->orderBy('u.name', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByTeamName(Team $team): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.teamName = :team')
+            ->setParameter('team', $team)
+            ->orderBy('u.name', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findOneByPrenom($value): ?Users
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.prenom = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
 //    /**
