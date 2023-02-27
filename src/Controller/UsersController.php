@@ -22,7 +22,7 @@ class UsersController extends AbstractController
     public function index(UsersRepository $repo): Response
     {
         return $this->render('users/listeComplete.html.twig', [
-            'users' => $repo->findAll(),
+            'users' => $repo->findBy([], ['dateEntree' => 'desc'])
         ]);
     }
 
@@ -30,7 +30,7 @@ class UsersController extends AbstractController
     public function liste(UsersRepository $repo): Response
     {
         return $this->render('users/listeActuelle.html.twig', [
-            'users' => $repo->findBy(['dateSortie' => null]),
+            'users' => $repo->findBy(['dateSortie' => null], ['dateEntree' => 'desc'])
         ]);
     }
     
