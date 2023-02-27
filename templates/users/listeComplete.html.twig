@@ -6,16 +6,8 @@
 <div class="container">
     <h1>Liste de tous les salariés d'Insercall</h1>
     <h3> Salariés présents et passés:  {{ users|length }} salariés. </h3>
-    {% for user in users %}
-        <article>
-            <p>{{ user.nom }} {{ user.prenom }}</p>
-            <p> lien vers les détails : <a href="{{ path('app_users_fiche', {'id': user.id}) }}">{{ user.prenom }}</a></p>
-        
-        </article>
-    {% else  %}
-        <p> Désolé, pas encore de salariés, n'hésitez pas à en entrer un. </p>
-    
-    {% endfor %}
+        {% include "_partials/_tableauSalaries.html.twig" %}
+
     <div class="lien btn btn-lg btn-violet d-grid gap-2 col-6 mx-auto"><a href="{{ path('app_users_create') }}">Ajouter un salarié</a></div>
 </div>
 {% endblock %}

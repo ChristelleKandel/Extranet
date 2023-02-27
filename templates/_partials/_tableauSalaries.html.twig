@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Niveau</th>
+            <th>Qualification</th>
+            <th>Chez Insercall depuis le</th>
+            <th>Jusqu'à</th>
+        </tr>
+    </thead>
+    {% for user in users %}
+    <tbody>
+        <td><a href="{{ path('app_users_fiche', {'id': user.id}) }}">{{ user.nom }}</a></td>
+        <td>{{ user.prenom }}</td>
+        <td>{{ user.teamName.name }}</td>
+        <td>{{ user.qualification.nomQualification }}</td>
+        <td>{{ user.dateEntree|date('d-m-Y') }}</td>
+        {# <td>{{ user.dateEntree|ago(locale='fr') }}</td> #}
+        <td>{{ user.dateSortie|ago(locale='fr') }}</td>
+    </tbody>
+    {% endfor %}
+</table>
+        
+        
