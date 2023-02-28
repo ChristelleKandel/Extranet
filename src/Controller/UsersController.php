@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\UserType;
 use App\Form\NewUserType;
+use App\Form\SelectUserType;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +20,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UsersController extends AbstractController
 {
     #[Route('/users', name: 'app_users')]
-    public function index(UsersRepository $repo): Response
-    {
+    public function index(UsersRepository $repo, Request $request, EntityManagerInterface $em): Response
+    { //Création d'un nouvel objet User
+        $user = new Users;
+        $form = $this->createForm(SelectUserType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $em->persist($user);
+            $em->flush();
+            // return $this-> redirectToRoute('app_users');
+        }
         return $this->render('users/listeComplete.html.twig', [
+            'SelectForm' => $form->createView(),
             'users' => $repo->findBy([], ['dateEntree' => 'desc'])
         ]);
     }
@@ -61,9 +72,6 @@ class UsersController extends AbstractController
     {
         //Création d'un nouvel objet User
         $user = new Users;
-
-        //Implémentation de ma date d'arrivée (aujourd'hui par défaut) 
-        // $user->setDateEntree(new \DateTimeImmutable('now'));
 
         $form = $this->createForm(NewUserType::class, $user);
         $form->handleRequest($request);

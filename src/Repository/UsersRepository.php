@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Team;
 use App\Entity\Users;
 use App\Entity\Qualifications;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -44,12 +45,17 @@ class UsersRepository extends ServiceEntityRepository
     /**
     * @return Users[] Returns an array of Users objects
     */
+    public function findAllUsersByNameAscQueryBuilder(): QueryBuilder{
+        return $this-> createQueryBuilder('u')
+            ->orderBy('u.nom', 'ASC');
+    }
+
     public function findByQualification(Qualifications $qualification): array
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.qualification = :qualif')
             ->setParameter('qualif', $qualification)
-            ->orderBy('u.name', 'ASC')
+            ->orderBy('u.prenom', 'ASC')
             // ->setMaxResults(10)
             ->getQuery()
             ->getResult()
