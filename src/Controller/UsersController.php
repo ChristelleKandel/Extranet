@@ -21,10 +21,11 @@ class UsersController extends AbstractController
 {
     #[Route('/users', name: 'app_users')]
     public function index(UsersRepository $repo, Request $request, EntityManagerInterface $em): Response
-    { //Création d'un nouvel objet User
+    { 
+        //Création d'un nouvel objet User
         $user = new Users;
+        //création du formulaire de filtre
         $form = $this->createForm(SelectUserType::class, $user);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             $em->persist($user);
@@ -38,9 +39,20 @@ class UsersController extends AbstractController
     }
 
     #[Route('/users/actuels', name: 'app_users_actuels')]
-    public function liste(UsersRepository $repo): Response
+    public function liste(UsersRepository $repo, Request $request, EntityManagerInterface $em): Response
     {
+        //Création d'un nouvel objet User
+        $user = new Users;
+        //création du formulaire de filtre
+        $form = $this->createForm(SelectUserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $em->persist($user);
+            $em->flush();
+            // return $this-> redirectToRoute('app_users');
+        }
         return $this->render('users/listeActuelle.html.twig', [
+            'SelectForm' => $form->createView(),
             'users' => $repo->findBy(['dateSortie' => null], ['dateEntree' => 'desc'])
         ]);
     }
