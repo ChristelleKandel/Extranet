@@ -14,6 +14,7 @@ use App\Repository\UsersRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,61 +25,44 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SelectUserType extends AbstractType
 {
+    public function __construct(private UsersRepository $usersRepository){}
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
-                //récupération du formulaire
-                $form = $event->getForm();
-                //récupération des datas du formulaire
-                $data = $event->getData();
-
-                //récupération de la qualification
-                // if (null !== $data->getQualification()){
-                //     $qualif = $data->getQualification();
-                // }else{
-                //     $qualif = null;
-                // }
-                // dd($data->getQualification());
-                // + court : 
-                // $qualif = $data->getQualification() ?? null;
-
-                //Création de la liste des prénoms liés à la qualification choisie
-                // $prenoms = $qualif === null ? [] : UsersRepository::class->findByQualification($qualif);
-                // $prenoms = UsersRepository::class->findByQualification($qualif);
-                // dd($prenoms);
-                // création du champ prénom 
-                $form->add('prenom', EntityType::class, [
-                    'class'=> Users::class, 
-                    'choice_label' => 'prenom', 
-                    'placeholder' => 'Choisir',
-                    // 'choices' => $prenoms
-                ]);
-            })
-            
-            ->add('nom', EntityType::class, [
-                'class'=>Users::class, 
-                'choice_label' => 'nom', 
-                'placeholder' => 'Choisir',
-                'query_builder' => function(UsersRepository $users){
-                    return $users->findAllUsersByNameAscQueryBuilder();
-                },
-            ])
-            ->add('teamName', EntityType::class, [
-                'class'=>Team::class, 
-                'choice_label'=>'Name', 
-                'label' => 'Nom de la team',
-                'placeholder' => 'choisir'
-                ])
             ->add('qualification', EntityType::class, [
                 'class'=>Qualifications::class, 
                 'choice_label'=>'nomQualification', 
                 'label' => 'Qualification chez Insercall',
                 'placeholder' => 'choisir',
-                ])
-        ;
-    }
+            ]);
 
+        $formModifier = function (FormInterface $form, Qualifications $qualif = null) {
+            //Création de la liste des prénoms liés à la qualification choisie
+            $prenoms = $qualif === null ? [] : $this->usersRepository->findByQualification($qualif);
+            // dd($prenoms);
+            // création du champ prénom 
+            $form->add('prenom', EntityType::class, [
+                'class'=> Users::class, 
+                'label' => 'Nom complet',
+                'choice_label' => 'fullName', 
+                'disabled' => $qualif === null,
+                'placeholder' => 'Choisir',
+                'choices' => $prenoms
+            ]);
+        };
+        $builder
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($formModifier){
+                //récupération de la qualif du formulaire
+                $data = $event->getData();
+                $formModifier($event->getForm(), $data->getQualification());
+            });
+        $builder
+            ->get('qualification')->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($formModifier){
+            $qualif = $event->getForm()->getData();
+            // dd($qualif);
+            $formModifier($event->getForm()->getParent(), $qualif);
+            });
+        }        
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

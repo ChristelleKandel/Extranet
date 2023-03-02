@@ -2,19 +2,13 @@
     <div class="d-grid gap-2 col-12 mx-auto">
         <div class="row">
             <div class="col-md-3">
-                {{ form_row(SelectForm.nom) }}
+                {{ form_row(SelectForm.qualification) }}
             </div>
             <div class="col-md-3">
                 {{ form_row(SelectForm.prenom) }}
             </div>
-            <div class="col-md-3">
-                {{ form_row(SelectForm.teamName) }}
-            </div>
-                <div class="col-md-3">
-                {{ form_row(SelectForm.qualification) }}
-            </div>
         </div>
-        <input type="submit" class="btn btn-orange" value="Filtrer">
+        <input type="submit" class="btn btn-orange" formnovalidate value="Filtrer">
     </div>
 {{ form_end(SelectForm) }}
 
@@ -42,4 +36,28 @@
     {% endfor %}
 </table>
         
-        
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const qualifSelect = document.getElementById('select_user_qualification');
+        qualifSelect.addEventListener('change', function(e) {
+            const formEl = qualifSelect.closest('form');
+            fetch(formEl.action, {
+                method: formEl.method,
+                body: new FormData(formEl)
+            })
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newPrenomFormFieldEl = doc.getElementById('select_user_prenom');
+                newPrenomFormFieldEl.addEventListener('change', function(e) {
+                    e.target.classList.remove('is-invalid');
+                });
+                document.getElementById('select_user_prenom').replaceWith(newPrenomFormFieldEl);
+            })
+            .catch(function (err) {
+                console.warn('Oups, attention', err);
+            });
+        });
+    });
+</script>  

@@ -28,8 +28,8 @@ class UsersController extends AbstractController
         $form = $this->createForm(SelectUserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
-            $em->persist($user);
-            $em->flush();
+            // $em->persist($user);
+            // $em->flush();
             // return $this-> redirectToRoute('app_users');
         }
         return $this->render('users/listeComplete.html.twig', [
@@ -47,8 +47,8 @@ class UsersController extends AbstractController
         $form = $this->createForm(SelectUserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
-            $em->persist($user);
-            $em->flush();
+            // $em->persist($user);
+            // $em->flush();
             // return $this-> redirectToRoute('app_users');
         }
         return $this->render('users/listeActuelle.html.twig', [
