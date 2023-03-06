@@ -7,6 +7,7 @@ use App\Entity\Users;
 use App\Entity\Qualifications;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -42,12 +43,57 @@ class UsersRepository extends ServiceEntityRepository
         }
     }
 
+    // Fonction de tri des users par ordre alphabétique
     /**
     * @return Users[] Returns an array of Users objects
     */
     public function findAllUsersByNameAscQueryBuilder(): QueryBuilder{
         return $this-> createQueryBuilder('u')
             ->orderBy('u.nom', 'ASC');
+    }
+
+    // Fonction qui retourne les salariés en fonction des résultats de recherche
+    /**
+    * @return Users[] Returns an array of Users objects
+    */
+
+    // public function findFilter(SearchData $search): PaginationInterface
+    public function findFilter(SearchData $search): array
+
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('q', 'u')->join('u.qualification', 'q');
+            //on utilise la jointure entre les qualifications et les users poru ne pas faire double emploi
+        if(!empty($search->searchBar)){
+            $query = query->andWhere('u.name LIKE :q')
+                ->setParameter('q', "%{$search->searchBar}%");
+        }
+
+        if(!empty($search->qualification)){
+            $query = $query->andWhere('u.qualification = :qualif')
+                ->setParameter('qualif', $qualification)
+                ->orderBy('u.prenom', 'ASC')
+            ;
+        }
+        if(!empty($search->teamName)){
+            $query = $query->andWhere('u.teamName = :team')
+                ->setParameter('team', $teamName)
+                ->orderBy('u.prenom', 'ASC')
+            ;
+        }
+        if(!empty($search->prenom)){
+            $query = $query->andWhere('u.prenom = :prenom')
+                ->setParameter('prenom', $prenom)
+            ;
+        }
+        if(!empty($search->nom)){
+            $query = $query->andWhere('u.nom = :nom')
+                ->setParameter('nom', $nom)
+                ->orderBy('u.nom', 'ASC')
+            ;
+        }
+        return $query->getQuery()->getResult();
+        // return $this->paginator->paginate($query, $search->page,9);
     }
 
     public function findByQualification(Qualifications $qualification): array
@@ -70,15 +116,6 @@ class UsersRepository extends ServiceEntityRepository
             // ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
-    }
-    public function findOneByPrenom($value): ?Users
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.prenom = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
         ;
     }
 

@@ -145,7 +145,8 @@ class UserType extends AbstractType
                 'widget' => 'single_text', 
                 'label' => 'Date de renouvellement', 
                 'required' => false, 
-                'by_reference' => true])
+                'by_reference' => true
+                ])
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
                 //récupération du formulaire
                 $form = $event->getForm();

@@ -39,11 +39,10 @@ class SelectUserType extends AbstractType
         $formModifier = function (FormInterface $form, Qualifications $qualif = null) {
             //Création de la liste des prénoms liés à la qualification choisie
             $prenoms = $qualif === null ? [] : $this->usersRepository->findByQualification($qualif);
-            // dd($prenoms);
             // création du champ prénom 
             $form->add('prenom', EntityType::class, [
                 'class'=> Users::class, 
-                'label' => 'Nom complet',
+                'label' => 'prenom',
                 'choice_label' => 'fullName', 
                 'disabled' => $qualif === null,
                 'placeholder' => 'Choisir',
@@ -51,15 +50,14 @@ class SelectUserType extends AbstractType
             ]);
         };
         $builder
-            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($formModifier){
-                //récupération de la qualif du formulaire
-                $data = $event->getData();
-                $formModifier($event->getForm(), $data->getQualification());
+            ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($formModifier){
+                $form = $event->getForm();
+                $data = $event->getData();                
+                $formModifier($form, $data->getQualification());
             });
         $builder
             ->get('qualification')->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($formModifier){
             $qualif = $event->getForm()->getData();
-            // dd($qualif);
             $formModifier($event->getForm()->getParent(), $qualif);
             });
         }        

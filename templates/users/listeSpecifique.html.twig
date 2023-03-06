@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UsersController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Affichage des salariés par qualification</h1>
+    </br>
+    {# Liste de tous les users sélectionnés par findBy dans le controller: #}
+    
+
+
+    <div class="row gx-5">
+    <div class="col-md-3"><div class="btn btn-lg btn-green d-grid gap-5"><a href="{{ path('app_users') }}">Historique des salariés</a></div></div>
+    <div class="col-md-3"><div class="btn btn-lg btn-bleu d-grid gap-2"><a href="#">Congés/Absences</a></div></div>
+    <div class="col-md-3"><div class="btn btn-lg btn-orange d-grid gap-2"><a href="{{ path('app_users_create') }}">Ajouter un salarié</a></div></div>
+    </div>
+    </br>
+
+    {% include "_partials/_tableauSalariesSelect.html.twig" %}
+</div>
+{% endblock %}
+
