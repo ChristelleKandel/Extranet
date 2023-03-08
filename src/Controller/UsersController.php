@@ -31,15 +31,17 @@ class UsersController extends AbstractController
         $form = $this->createForm(SearchFormType::class, $data);
         //Si on soumet le filtre
         $form->handleRequest($request);
+        $usersListe = $repo->findFilter($data);
         if ($form->isSubmitted() && $form->isValid()) { 
             return $this->render('users/listeComplete.html.twig', [
                 'FilterForm' => $form->createView(),
-                'users' => $repo->findFilter($data),
-           ]);
+                'users' => $usersListe,
+            ]);
         }
+        // par défaut retourne la liste de tous les salariés triés par date d’arrivée descendante.
         return $this->render('users/listeComplete.html.twig', [
             'FilterForm' => $form->createView(),
-            'users' => $repo->findAll(),
+            'users' => $repo->findBy([], ['dateEntree' => 'desc']),
         ]);
     }
 
@@ -47,15 +49,16 @@ class UsersController extends AbstractController
     #[Route('/users/actuels', name: 'app_users_actuels')]
     public function liste(UsersRepository $repo, Request $request, EntityManagerInterface $em): Response
     {
-        //Création d'un nouvel objet User
-        $user = new Users;
-        //création du formulaire de filtre
-        $form = $this->createForm(SearchFormType::class, $user);
+        //Création d'un nouvel objet Data
+        $data = new SearchData; 
+        //création du formulaire de filtre à partir des Data
+        $form = $this->createForm(SearchFormType::class, $data);
+        //Si on soumet le filtre
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             return $this->render('users/listeActuelle.html.twig', [
                 'FilterForm' => $form->createView(),
-                'users' => $repo->findBy([], ['prenom' => 'desc'])
+                'users' => $repo->findFilter($data),
             ]);
         }
         return $this->render('users/listeActuelle.html.twig', [

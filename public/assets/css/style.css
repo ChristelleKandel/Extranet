@@ -51,20 +51,20 @@ h1, .h1{
     text-decoration: none;
 }
 .btn a{
-    color: white;
-    text-decoration: none;
+    color: white !important;
+    text-decoration: none !important;
 }
 .btn-violet a:hover{
-    color: #681239;
+    color: #681239 !important;
 }
 .btn-green a:hover{
-    color: #94c120;
+    color: #94c120 !important;
 }
 .btn-bleu a:hover{
-    color: #04a39e;
+    color: #04a39e !important;
 }
 .btn-orange a:hover{
-    color: #f39108;
+    color: #f39108 !important;
 }
 
 /* Les boutons de navigations*/

@@ -7,12 +7,12 @@
             <div class="col-md-3">
                 {{ form_row(FilterForm.qualif) }}
             </div>
-            <div class="col-md-3">
+            {# <div class="col-md-3">
                 {{ form_row(FilterForm.prenom) }}
             </div>
             <div class="col-md-3">
                 {{ form_row(FilterForm.nom) }}
-            </div>
+            </div> #}
             <div class="col-md-3">
                 {{ form_row(FilterForm.team) }}
             </div>
@@ -20,6 +20,11 @@
         <input type="submit" class="btn btn-orange d-grid gap-2 col-6 mx-auto" value="Filtrer">
     </div>
 {{ form_end(FilterForm) }}
+
+{# Ré-initialiser #}
+<div class="row mb-5">
+<div class="btn btn-bleu d-grid gap-2 col-6 mx-auto"><a href="{{ path('app_users') }}">Ré-initialiser</a></div>
+</div>
 
 <table class="table">
     <thead>

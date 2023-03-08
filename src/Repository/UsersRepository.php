@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Team;
 use App\Entity\Users;
+use App\Data\SearchData;
 use App\Entity\Qualifications;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -63,35 +64,38 @@ class UsersRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('u')
             ->select('q', 'u')->join('u.qualification', 'q');
-            //on utilise la jointure entre les qualifications et les users poru ne pas faire double emploi
+            //on utilise la jointure entre les qualifications et les users pour ne pas faire double emploi
+
         if(!empty($search->searchBar)){
-            $query = query->andWhere('u.name LIKE :q')
-                ->setParameter('q', "%{$search->searchBar}%");
+            $query = $query->andWhere('u.prenom LIKE :searchBar')
+                ->setParameter('searchBar', "%{$search->searchBar}%");
         }
 
-        if(!empty($search->qualification)){
-            $query = $query->andWhere('u.qualification = :qualif')
-                ->setParameter('qualif', $qualification)
+        if(!empty($search->qualif)){
+            $query = $query->andWhere('q.id IN (:qualif)')
+                ->setParameter('qualif', $search->qualif)
                 ->orderBy('u.prenom', 'ASC')
             ;
         }
-        if(!empty($search->teamName)){
-            $query = $query->andWhere('u.teamName = :team')
-                ->setParameter('team', $teamName)
+        if(!empty($search->team)){
+            $query = $query
+                ->select('u', 't')->join('u.teamName', 't')
+                ->andWhere('t.id IN (:team)')
+                ->setParameter('team', $search->team)
                 ->orderBy('u.prenom', 'ASC')
             ;
         }
-        if(!empty($search->prenom)){
-            $query = $query->andWhere('u.prenom = :prenom')
-                ->setParameter('prenom', $prenom)
-            ;
-        }
-        if(!empty($search->nom)){
-            $query = $query->andWhere('u.nom = :nom')
-                ->setParameter('nom', $nom)
-                ->orderBy('u.nom', 'ASC')
-            ;
-        }
+        // if(!empty($search->prenom)){
+        //     $query = $query->andWhere('u.prenom = :prenom')
+        //         ->setParameter('prenom', $prenom)
+        //     ;
+        // }
+        // if(!empty($search->nom)){
+        //     $query = $query->andWhere('u.nom = :nom')
+        //         ->setParameter('nom', $nom)
+        //         ->orderBy('u.nom', 'ASC')
+        //     ;
+        // }
         return $query->getQuery()->getResult();
         // return $this->paginator->paginate($query, $search->page,9);
     }

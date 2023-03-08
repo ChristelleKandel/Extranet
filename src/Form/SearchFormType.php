@@ -23,26 +23,35 @@ class SearchFormType extends AbstractType
     {
         $builder
             ->add('searchBar', TextType::class, [
-                'label' => false,
+                'label' =>  'Rechercher par prenom',
                 'required' => false,
-                'attr' => ['placeholder' => 'Rechercher']
+                'attr' => ['placeholder' => 'Rechercher par prenom']
             ])
-            ->add('nom')
-            ->add('prenom', null, ['label' => 'Prénom'])
+            // ->add('nom')
+            // ->add('prenom', null, ['label' => 'Prénom'])
+            // ->add('prenom', EntityType::class, [
+            //     'class'=>Users::class, 
+            //     'choice_label'=>'prenom', 
+            //     'required' => false,
+            //     'label' => 'Prénom',
+            //     'query_builder' => function(UsersRepository $userepo){
+            //         return $userepo->createQueryBuilder('u')
+            //         ->orderBy('u.prenom', 'ASC');}
+            // ])
             ->add('qualif', EntityType::class, [
                 'class'=>Qualifications::class, 
                 'choice_label'=>'nomQualification', 
                 'required' => false,
-                'label' => 'Qualification chez Insercall',
+                'label' => 'Trier par qualification',
                 'placeholder' => 'choisir',
                 'expanded' => true,
-                'multiple' => false
+                'multiple' => true
             ])
             ->add('team', EntityType::class, [
                 'class'=>Team::class, 
                 'choice_label'=>'name', 
                 'required' => false,
-                'label' => 'Team',
+                'label' => 'Niveau',
                 'placeholder' => 'choisir',
                 //  'expanded' => true,
                 //  'multiple' => true
