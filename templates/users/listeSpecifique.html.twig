@@ -4,11 +4,11 @@
 
 {% block body %}
 <div class="container">
-    <h1>Affichage des salariés actuels d'Insercall</h1>
+    <h1>Affichage des salariés par qualification</h1>
     </br>
     {# Liste de tous les users sélectionnés par findBy dans le controller: #}
-    <h2 class="text-center"> Il y a actuellement {{ (users|length) }} salariés. </h2>
-    </br>
+    
+
 
     <div class="row gx-5">
     <div class="col-md-3"><div class="btn btn-lg btn-green d-grid gap-5"><a href="{{ path('app_users') }}">Historique des salariés</a></div></div>
@@ -16,10 +16,8 @@
     <div class="col-md-3"><div class="btn btn-lg btn-orange d-grid gap-2"><a href="{{ path('app_users_create') }}">Ajouter un salarié</a></div></div>
     </div>
     </br>
-    <p>Classer par Niveau, Qualification, Prénom, Date d'arrivée </br>
-    Rechercher un salarié par son nom, Afficher la liste des salariés d'une qualification</p>
 
-    {% include "_partials/_tableauSalaries.html.twig" %}
+    {% include "_partials/_tableauSalariesSelect.html.twig" %}
 </div>
 {% endblock %}
 
