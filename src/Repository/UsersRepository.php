@@ -85,6 +85,12 @@ class UsersRepository extends ServiceEntityRepository
                 ->orderBy('u.prenom', 'ASC')
             ;
         }
+        if(!empty($search->enPoste)){
+            $query = $query
+                ->andWhere('u.dateSortie IS null')
+                ->orderBy('u.prenom', 'ASC')
+            ;
+        }
         // if(!empty($search->prenom)){
         //     $query = $query->andWhere('u.prenom = :prenom')
         //         ->setParameter('prenom', $prenom)

@@ -5,6 +5,7 @@ namespace App\Form;
 use DateTime;
 use App\Entity\Team;
 use App\Entity\Users;
+use App\Data\SearchData;
 use App\Entity\Qualifications;
 use App\Repository\TeamRepository;
 use App\Repository\UsersRepository;
@@ -14,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use App\Data\SearchData;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 
 class SearchFormType extends AbstractType
@@ -55,6 +56,10 @@ class SearchFormType extends AbstractType
                 'placeholder' => 'choisir',
                 //  'expanded' => true,
                 //  'multiple' => true
+            ])
+            ->add('enPoste', CheckboxType::class, [
+                'label' => "Toujours en poste",
+                'required' => false
             ])
             ;
 }
