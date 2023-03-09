@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Team;
-use App\Entity\Users;
+use App\Entity\User;
 use App\Entity\Qualifications;
 use App\Repository\TeamRepository;
 use Symfony\Component\Form\FormEvent;
@@ -57,7 +57,7 @@ class NewUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Users::class,
+            'data_class' => User::class,
         ]);
     }
 }

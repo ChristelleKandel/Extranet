@@ -4,7 +4,7 @@ namespace App\Form;
 
 use DateTime;
 use App\Entity\Team;
-use App\Entity\Users;
+use App\Entity\User;
 use App\Entity\Permis;
 use App\Entity\StatutSocial;
 use App\Entity\BeneficiaireDe;
@@ -220,7 +220,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Users::class,
+            'data_class' => User::class,
         ]);
     }
 }

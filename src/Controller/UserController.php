@@ -2,23 +2,23 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
+use App\Entity\User;
 use App\Form\UserType;
 use App\Data\SearchData;
 use App\Form\NewUserType;
 use App\Form\SearchFormType;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class UsersController extends AbstractController
+class UserController extends AbstractController
 {
     //L'index de TOUS les salariés 
     #[Route('/users', name: 'app_users')]
-    public function index(UsersRepository $repo, Request $request, EntityManagerInterface $em): Response
+    public function index(UserRepository $repo, Request $request, EntityManagerInterface $em): Response
     { 
         //Création d'un nouvel objet Data
         $data = new SearchData; 
@@ -42,7 +42,7 @@ class UsersController extends AbstractController
     
     //Création de la fiche salarié et modifications
     #[Route('/users/{id}/edit', name: 'app_users_fiche', priority:-1)]
-    public function createFiche(Users $user, Request $request, EntityManagerInterface $em): Response
+    public function createFiche(User $user, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(UserType::class, $user);
         // dd($form);
@@ -65,10 +65,10 @@ class UsersController extends AbstractController
 
     //Création d'un nouveau salarié
     #[Route('/users/create', name: 'app_users_create')]
-    public function create(Request $request, EntityManagerInterface $em, UsersRepository $UserRepo): Response
+    public function create(Request $request, EntityManagerInterface $em, UserRepository $UserRepo): Response
     {
         //Création d'un nouvel objet User
-        $user = new Users;
+        $user = new User;
 
         $form = $this->createForm(NewUserType::class, $user);
         $form->handleRequest($request);

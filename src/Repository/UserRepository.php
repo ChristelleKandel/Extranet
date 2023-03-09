@@ -3,30 +3,30 @@
 namespace App\Repository;
 
 use App\Entity\Team;
-use App\Entity\Users;
+use App\Entity\User;
 use App\Data\SearchData;
 use App\Entity\Qualifications;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Users>
+ * @extends ServiceEntityRepository<User>
  *
- * @method Users|null find($id, $lockMode = null, $lockVersion = null)
- * @method Users|null findOneBy(array $criteria, array $orderBy = null)
- * @method Users[]    findAll()
- * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
+ * @method User[]    findAll()
+ * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UsersRepository extends ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Users::class);
+        parent::__construct($registry, User::class);
     }
 
-    public function save(Users $entity, bool $flush = false): void
+    public function save(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -35,7 +35,7 @@ class UsersRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Users $entity, bool $flush = false): void
+    public function remove(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -44,9 +44,10 @@ class UsersRepository extends ServiceEntityRepository
         }
     }
 
+    
     // Fonction de tri des users par ordre alphabétique
     /**
-    * @return Users[] Returns an array of Users objects
+    * @return User[] Returns an array of Users objects
     */
     public function findAllUsersByNameAscQueryBuilder(): QueryBuilder{
         return $this-> createQueryBuilder('u')
@@ -55,7 +56,7 @@ class UsersRepository extends ServiceEntityRepository
 
     // Fonction qui retourne les salariés en fonction des résultats de recherche
     /**
-    * @return Users[] Returns an array of Users objects
+    * @return User[] Returns an array of Users objects
     */
 
     // public function findFilter(SearchData $search): PaginationInterface
@@ -129,8 +130,9 @@ class UsersRepository extends ServiceEntityRepository
         ;
     }
 
+
 //    /**
-//     * @return Users[] Returns an array of Users objects
+//     * @return User[] Returns an array of User objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -144,7 +146,7 @@ class UsersRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Users
+//    public function findOneBySomeField($value): ?User
 //    {
 //        return $this->createQueryBuilder('u')
 //            ->andWhere('u.exampleField = :val')

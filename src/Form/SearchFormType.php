@@ -4,11 +4,11 @@ namespace App\Form;
 
 use DateTime;
 use App\Entity\Team;
-use App\Entity\Users;
+use App\Entity\User;
 use App\Data\SearchData;
 use App\Entity\Qualifications;
 use App\Repository\TeamRepository;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;

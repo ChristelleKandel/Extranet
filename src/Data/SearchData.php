@@ -3,7 +3,7 @@
 namespace App\Data;
 
 use App\Entity\Team;
-use App\Entity\Users;
+use App\Entity\User;
 use App\Entity\Qualifications;
 
 class SearchData
@@ -14,21 +14,6 @@ class SearchData
     */
     public ?string $searchBar = '';
 
-    // /**
-    // * @var string
-    // */
-    // public ?string $prenom = '';
-
-    // /**
-    // * @var Users
-    // */
-    // public $prenom = null;
-
-    // /**
-    // * @var string
-    // */
-    // public ?string $nom = '';
-    
     //système de tri par qualification. Je passe un tableau pour avoir plusieurs choix possibles  
     /**
     * @var Qualifications[]

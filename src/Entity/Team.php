@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\TeamRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TeamRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
 class Team
@@ -21,7 +22,7 @@ class Team
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Name = null;
 
-    #[ORM\OneToMany(mappedBy: 'teamName', targetEntity: Users::class)]
+    #[ORM\OneToMany(mappedBy: 'teamName', targetEntity: User::class)]
     private Collection $users;
 
     public function __construct()
@@ -59,14 +60,14 @@ class Team
     }
 
     /**
-     * @return Collection<int, Users>
+     * @return Collection<int, User>
      */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUser(Users $user): self
+    public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
@@ -76,7 +77,7 @@ class Team
         return $this;
     }
 
-    public function removeUser(Users $user): self
+    public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
