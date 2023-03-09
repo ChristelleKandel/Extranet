@@ -27,7 +27,7 @@
             </thead>
             {% for user in users %}
             <tbody>
-                <td><a href="{{ path('app_users_fiche', {'id': user.id}) }}">{{ user.nom }}</a></td>
+                <td><a href="{{ path('app_users_fiche', {'id': user.id}) }}" title="Accès à sa fiche">{{ user.nom }}</a></td>
                 <td>{{ user.prenom }}</td>
                 <td>{{ user.teamName.name }}</td>
                 <td>{{ user.qualification.nomQualification }}</td>

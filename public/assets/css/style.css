@@ -125,6 +125,17 @@ form{
     margin-bottom: 20px;
 }
 
+/*Le tableau des salariés */
+td a{
+    color: #681239;
+    text-decoration: none;
+    font-weight: 700;
+}
+td a:hover{
+    color: #04a39e;
+    cursor: help;
+}
+
 /* Les alertes */
 
 .alert{
