@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UsersController!{% endblock %}
+
+{% block body %}
+    <h1>Salariés d'Insercall </h1>
+    <h2>{{ (users|length) }} salariés correspondent à vos critères de recherche </h2>
+    </br>
+    {# Liste de tous les users sélectionnés par findBy dans le controller: #}
+    </br>
+    <div class="row gx-5 mb-5">
+    <div class="col-md-3"><div class="btn btn-lg btn-bleu d-grid gap-2"><a href="#">Congés/Absences</a></div></div>
+    <div class="col-md-3"><div class="btn btn-lg btn-violet d-grid gap-2"><a href="{{ path('app_users_create') }}">Ajouter un salarié</a></div></div>
+    </div>
+    </br>
+    {% include "_partials/_tableauSalaries.html.twig" %}
+{% endblock %}
+

@@ -28,17 +28,6 @@ class SearchFormType extends AbstractType
                 'required' => false,
                 'attr' => ['placeholder' => 'Rechercher par prenom']
             ])
-            // ->add('nom')
-            // ->add('prenom', null, ['label' => 'Prénom'])
-            // ->add('prenom', EntityType::class, [
-            //     'class'=>Users::class, 
-            //     'choice_label'=>'prenom', 
-            //     'required' => false,
-            //     'label' => 'Prénom',
-            //     'query_builder' => function(UsersRepository $userepo){
-            //         return $userepo->createQueryBuilder('u')
-            //         ->orderBy('u.prenom', 'ASC');}
-            // ])
             ->add('qualif', EntityType::class, [
                 'class'=>Qualifications::class, 
                 'choice_label'=>'nomQualification', 

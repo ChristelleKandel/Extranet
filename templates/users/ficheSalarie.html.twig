@@ -2,8 +2,6 @@
 
 {% block title %} fiche {% endblock %}
 {% block body %}
-
-<div class="container">
     <h1 class="text-center">Fiche administrative de {{ user.fullName }} </h1>
     <p><i class="fa-solid fa-lightbulb"></i> Ceci est un formulaire unique, lors d'un click sur un bouton "Enregistrer", TOUTES les informations sont prises en compte. </br>
     Les champs peuvent rester vides pour être remplis ultérieurement.
@@ -108,9 +106,6 @@
                     {{ form_row(monForm.nbEnfants) }}
                 </div>
             </div>
-
-            
-            
         </div>
         <button type="submit" class="btn btn-lg btn-bleu d-grid gap-2 col-6 mx-auto">Enregistrer les modifications</button>
 
@@ -277,10 +272,8 @@
             </div>
             {{ form_row(monForm.notes) }}
         </div>
-
         <button type="submit" class="btn btn-lg btn-bleu d-grid gap-2 col-6 mx-auto">Enregistrer les modifications</button> 
     {{ form_end(monForm) }}
     <div class="lien btn btn-lg btn-violet d-grid gap-2 col-6 mx-auto"><a href="{{ path('app_users') }}">Retour à la liste des salariés</a></div>
     </br>
-</div>
 {% endblock %}

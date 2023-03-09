@@ -7,16 +7,11 @@ use App\Form\UserType;
 use App\Data\SearchData;
 use App\Form\NewUserType;
 use App\Form\SearchFormType;
-use App\Form\SelectUserType;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UsersController extends AbstractController
@@ -33,58 +28,15 @@ class UsersController extends AbstractController
         $form->handleRequest($request);
         $usersListe = $repo->findFilter($data);
         if ($form->isSubmitted() && $form->isValid()) { 
-            return $this->render('users/listeComplete.html.twig', [
+            return $this->render('users/liste.html.twig', [
                 'FilterForm' => $form->createView(),
                 'users' => $usersListe,
             ]);
         }
         // par défaut retourne la liste de tous les salariés triés par date d’arrivée descendante.
-        return $this->render('users/listeComplete.html.twig', [
+        return $this->render('users/liste.html.twig', [
             'FilterForm' => $form->createView(),
-            'users' => $repo->findBy([], ['dateEntree' => 'desc']),
-        ]);
-    }
-
-    // La liste des salariés actuels
-    #[Route('/users/actuels', name: 'app_users_actuels')]
-    public function liste(UsersRepository $repo, Request $request, EntityManagerInterface $em): Response
-    {
-        //Création d'un nouvel objet Data
-        $data = new SearchData; 
-        //création du formulaire de filtre à partir des Data
-        $form = $this->createForm(SearchFormType::class, $data);
-        //Si on soumet le filtre
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) { 
-            return $this->render('users/listeActuelle.html.twig', [
-                'FilterForm' => $form->createView(),
-                'users' => $repo->findFilter($data),
-            ]);
-        }
-        return $this->render('users/listeActuelle.html.twig', [
-            'FilterForm' => $form->createView(),
-            'users' => $repo->findBy(['dateSortie' => null], ['dateEntree' => 'desc'])
-        ]);
-    }
-
-    //Sélection dynamique d'un salarié par rapport à sa qualification
-    #[Route('/users/qualification-select', name: 'app_users_actuels_selected')]
-    public function getSalariesByQualification(UsersRepository $repo, Request $request, EntityManagerInterface $em): Response
-    {
-        //Création d'un nouvel objet User
-        $user = new Users;
-        //création du formulaire de filtre
-        $form = $this->createForm(SelectUserType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) { 
-            return $this->render('users/listeSpecifique.html.twig', [
-                'SelectForm' => $form->createView(),
-                'users' => $repo->findBy([], ['prenom' => 'desc'])
-            ]);
-        }
-        return $this->render('users/listeSpecifique.html.twig', [
-            'SelectForm' => $form->createView(),
-            'users' => $repo->findBy(['dateSortie' => null], ['dateEntree' => 'desc'])
+            'users' => $repo->findBy(['dateSortie' => null], ['dateEntree' => 'desc']),
         ]);
     }
     
