@@ -63,22 +63,22 @@ class UserController extends AbstractController
         // ]);
     }
 
-    //Création d'un nouveau salarié
-    #[Route('/users/create', name: 'app_users_create')]
-    public function create(Request $request, EntityManagerInterface $em, UserRepository $UserRepo): Response
-    {
-        //Création d'un nouvel objet User
-        $user = new User;
+    //Création d'un nouveau salarié, NON: géré par registrationController
+    // #[Route('/users/create', name: 'app_users_create')]
+    // public function create(Request $request, EntityManagerInterface $em, UserRepository $UserRepo): Response
+    // {
+    //     //Création d'un nouvel objet User
+    //     $user = new User;
 
-        $form = $this->createForm(NewUserType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) { 
-            $em->persist($user);
-            $em->flush();
-            return $this-> redirectToRoute('app_users');
-        }
-        return $this->render('users/addUser.html.twig', [
-            'monForm' => $form->createView(),
-        ]);
-    }
+    //     $form = $this->createForm(NewUserType::class, $user);
+    //     $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid()) { 
+    //         $em->persist($user);
+    //         $em->flush();
+    //         return $this-> redirectToRoute('app_users');
+    //     }
+    //     return $this->render('users/addUser.html.twig', [
+    //         'monForm' => $form->createView(),
+    //     ]);
+    // }
 }

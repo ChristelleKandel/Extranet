@@ -13,15 +13,15 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        Vous êtes identifié comme {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnection</a>
+                        Vous êtes déjà identifié(e) {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnection</a>
                     </div>
                 {% endif %}
 
                 <h1 class="h3 mb-3 font-weight-normal">Merci de vous identifier</h1>
-                <label for="pseudo">Nom d'utilisateur</label>
+                <label for="pseudo">Votre pseudo Insercall</label>
                 <input type="text" value="{{ last_username }}" name="pseudo" id="pseudo" class="form-control" autocomplete="pseudo" required autofocus>
-                <label for="mdp">Password</label>
-                <input type="password" name="mdp" id="mdp" class="form-control" autocomplete="current-password" required>
+                <label for="mdp">Mot de passe</label>
+                <input type="password" name="mdp" id="mdp" class="form-control" autocomplete="mdp" required>
 
                 <input type="hidden" name="_csrf_token"
                     value="{{ csrf_token('authenticate') }}"

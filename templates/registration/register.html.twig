@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un salarié{% endblock %} 
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto"> 
+            <h1>Ajouter un salarié</h1>
+            {{ form_start(registrationForm, {'attr': {'class': 'my-5'}}) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.nom) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.prenom) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        {{ form_row(registrationForm.sexe) }}
+                    </div>
+                    <div class="col-md-5">
+                        {{ form_row(registrationForm.teamName) }}
+                    </div>
+                    <div class="col-md-5">
+                        {{ form_row(registrationForm.qualification) }}
+                    </div>
+                </div>
+                {{ form_row(registrationForm.emailInsercall) }}
+                {{ form_row(registrationForm.pseudo) }}
+                {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.dateEntree) }}
+                <button type="submit" class="btn btn-lg btn-primary d-grid gap-2 col-6 mx-auto">Enregistrer</button> 
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}

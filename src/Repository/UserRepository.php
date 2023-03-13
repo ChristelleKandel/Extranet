@@ -7,9 +7,12 @@ use App\Entity\User;
 use App\Data\SearchData;
 use App\Entity\Qualifications;
 use Doctrine\ORM\QueryBuilder;
-use Knp\Component\Pager\Pagination\PaginationInterface;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -19,7 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -42,6 +45,20 @@ class UserRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Used to upgrade (rehash) the user's password automatically over time.
+     */
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
+        if (!$user instanceof User) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        }
+
+        $user->setPassword($newHashedPassword);
+
+        $this->save($user, true);
     }
 
     
@@ -92,19 +109,7 @@ class UserRepository extends ServiceEntityRepository
                 ->orderBy('u.prenom', 'ASC')
             ;
         }
-        // if(!empty($search->prenom)){
-        //     $query = $query->andWhere('u.prenom = :prenom')
-        //         ->setParameter('prenom', $prenom)
-        //     ;
-        // }
-        // if(!empty($search->nom)){
-        //     $query = $query->andWhere('u.nom = :nom')
-        //         ->setParameter('nom', $nom)
-        //         ->orderBy('u.nom', 'ASC')
-        //     ;
-        // }
         return $query->getQuery()->getResult();
-        // return $this->paginator->paginate($query, $search->page,9);
     }
 
     public function findByQualification(Qualifications $qualification): array

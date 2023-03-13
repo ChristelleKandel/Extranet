@@ -5,13 +5,16 @@ namespace App\Entity;
 use App\Entity\Team;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface
+#[UniqueEntity(fields: ['pseudo'], message: 'Ce pseudo est déjà existant')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -69,6 +72,25 @@ class User implements UserInterface
 
         return $this;
     }
+    
+    /**
+     * Returns the password used to authenticate the user.
+     * This should be the encoded password.
+     * 
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->mdp;
+    }
+
+    public function setPassword(string $mdp): self
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
+
 
     /**
      * @see UserInterface
@@ -177,7 +199,10 @@ private ?\DateTimeInterface $dateEntree = null;
 #[ORM\Column(length: 255, nullable: true)]
 private ?string $emailInsercall = null;
 
-#[ORM\Column(length: 255, nullable: true)]
+/**
+ * @var string The hashed password
+ */
+#[ORM\Column]
 private ?string $mdp = null;
 
 #[ORM\ManyToOne(inversedBy: 'users')]
@@ -658,7 +683,10 @@ public function setEmailInsercall(?string $emailInsercall): self
     return $this;
 }
 
-public function getMdp(): ?string
+/**
+ * @see PasswordAuthenticatedUserInterface
+ */
+public function getMdp(): string
 {
     return $this->mdp;
 }
