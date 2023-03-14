@@ -12,12 +12,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
     //L'index de TOUS les salariés 
     #[Route('/users', name: 'app_users')]
+    /**
+     * @Security("is_granted('ROLE_ADMIN')", message="Vous n'êtes pas autorisé(e) à accéder à cette page")
+     */
     public function index(UserRepository $repo, Request $request, EntityManagerInterface $em): Response
     { 
         //Création d'un nouvel objet Data
@@ -42,6 +46,9 @@ class UserController extends AbstractController
     
     //Création de la fiche salarié et modifications
     #[Route('/users/{id}/edit', name: 'app_users_fiche', priority:-1)]
+    /**
+     * @Security("is_granted('ROLE_ADMIN')", message="Vous n'êtes pas autorisé(e) à accéder à cette page")
+     */
     public function createFiche(User $user, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(UserType::class, $user);
