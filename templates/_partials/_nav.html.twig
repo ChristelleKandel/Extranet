@@ -11,24 +11,25 @@
         <li class="nav-item">
           <a class="nav-link btnspecial btn-violet" aria-current="page" href="{{ path('app_home') }}">Home</a>
         </li>
-        {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item">
             <a class="nav-link btnspecial btn-green" href="{{ path('app_users') }}">Salariés</a>
           </li>        
           <li class="nav-item">
             <a class="nav-link btnspecial btn-bleu" href="{{ path('app_home_contact') }}">RDV</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link btnspecial btn-orange" href="#">Articles</a>
-          </li>
         {% endif %}
+        <li class="nav-item">
+          <a class="nav-link btnspecial btn-orange" href="#">Articles</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link btnspecial btn-violet" href="{{ path('app_login') }}">LogIn</a>
         </li>  
-        <li class="nav-item">
-          <a class="nav-link btnspecial btn-green" href="{{ path('app_account') }}">Compte</a>
-        </li>
-
+        {% if app.user %}
+          <li class="nav-item">
+            <a class="nav-link btnspecial btn-green" href="{{ path('app_account') }}">Compte</a>
+          </li>
+        {% endif %}
         {# Sous-menu déroulant #}
         {# <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

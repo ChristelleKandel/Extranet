@@ -70,7 +70,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
         //je rajoute la fonction flash que je récupère grâce à la requête qui a accès à la session dans laquelle se trouve la fonction flash
-        $request->getSession()->getFlashBag()->add('danger', 'Vous devez être identifié pour accéder à cette page');
+        $request->getSession()->getFlashBag()->add('danger', 'Merci de vous identifier pour continuer.');
         $url = $this->getLoginUrl($request);
 
         return new RedirectResponse($url);
