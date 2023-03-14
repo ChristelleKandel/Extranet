@@ -9,8 +9,9 @@
     {# Liste de tous les users sélectionnés par findBy dans le controller: #}
     </br>
     <div class="row gx-5 mb-5">
-    <div class="col-md-3"><div class="btn btn-lg btn-green d-grid gap-2"><a href="#">Congés/Absences</a></div></div>
+    <div class="col-md-3"><div class="btn btn-lg btn-green d-grid gap-2"><a href="{{ path('app_users_conges') }}">Congés/Absences</a></div></div>
     <div class="col-md-3"><div class="btn btn-lg btn-violet d-grid gap-2"><a href="{{ path('app_register') }}">Ajouter un salarié</a></div></div>
+
     </div>
     </br>
     {% include "_partials/_tableauSalaries.html.twig" %}

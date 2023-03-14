@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/account')]
 class AccountController extends AbstractController
 {
+    //Accès accueil compte d'utilisateur
     #[Route('', name: 'app_account')]
     public function show_account(): Response
     {
@@ -22,8 +23,18 @@ class AccountController extends AbstractController
         ]);
     }
 
+    //Accès aux congés de l'utilisateur
+    #[Route('/conges', name: 'app_account_conges')]
+    public function show_conges(): Response
+    {
+        $user = $this->getUser();
+        return $this->render('account/conges.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
     //Accès à la fiche salarié et modifications
-    #[Route('/edit', name: 'app_account_edit')]
+    #[Route('/fiche', name: 'app_account_fiche')]
     public function createFiche(Request $request, EntityManagerInterface $em): Response
     {
         //Je rajoute une sécurité pour que les personnes qui rallument mon ordi et sont connectés grâce au cookie rememberMe ne puissent pas accéder à ses fonctions

@@ -8,28 +8,26 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- ml auto, remplacé par ms-auto avec bootstrap5, pour mettre le menu à gauche en gardant le logo à droite -->
       <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
-        <li class="nav-item">
-          <a class="nav-link btnspecial btn-violet" aria-current="page" href="{{ path('app_home') }}">Home</a>
-        </li>
         {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item">
+            <a class="nav-link btnspecial btn-violet" aria-current="page" href="{{ path('app_home') }}">Home</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link btnspecial btn-green" href="{{ path('app_users') }}">Salariés</a>
           </li>        
           <li class="nav-item">
-            <a class="nav-link btnspecial btn-bleu" href="{{ path('app_home_contact') }}">RDV</a>
+            <a class="nav-link btnspecial btn-bleu" href="{{ path('app_home_rdv') }}">RDV</a>
           </li>
         {% endif %}
         <li class="nav-item">
-          <a class="nav-link btnspecial btn-orange" href="#">Articles</a>
+          <a class="nav-link btnspecial btn-orange" href="{{ path('app_account') }}">Compte</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btnspecial btn-violet" href="{{ path('app_login') }}">LogIn</a>
+          <a class="nav-link btnspecial btn-violet" href="#">Articles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btnspecial btn-green" href="{{ path('app_login') }}">LogIn</a>
         </li>  
-        {% if app.user %}
-          <li class="nav-item">
-            <a class="nav-link btnspecial btn-green" href="{{ path('app_account') }}">Compte</a>
-          </li>
-        {% endif %}
         {# Sous-menu déroulant #}
         {# <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

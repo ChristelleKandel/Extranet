@@ -1,17 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccountController!{% endblock %}
+{% block title %}Compte de {{ user.fullName }}{% endblock %}
 
 {% block body %}
 
-    <h1>Hello {{ user.fullName }}! </h1>
+    <h1>Bienvenue {{ user.fullName }}. </h1>
 
     Page d'accueil du compte utilisateur
 
 </br>
     <div class="row gx-5 mb-5">
     <div class="col-md-3"><div class="btn btn-lg btn-green d-grid gap-2"><a href="#">Congés/Absences</a></div></div>
-    <div class="col-md-3"><div class="btn btn-lg btn-violet d-grid gap-2"><a href="{{ path('app_account_edit') }}">Ma fiche salarié</a></div></div>
+    <div class="col-md-3"><div class="btn btn-lg btn-bleu d-grid gap-2"><a href="{{ path('app_account_fiche') }}">Ma fiche salarié</a></div></div>
+    <div class="col-md-3"><div class="btn btn-lg btn-violet d-grid gap-2"><a href="{{ path('app_account_conges') }}">Mes congés</a></div></div>
     </div>
     </br>
 

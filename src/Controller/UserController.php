@@ -70,22 +70,22 @@ class UserController extends AbstractController
         // ]);
     }
 
-    //Création d'un nouveau salarié, NON: géré par registrationController
-    // #[Route('/users/create', name: 'app_users_create')]
-    // public function create(Request $request, EntityManagerInterface $em, UserRepository $UserRepo): Response
-    // {
-    //     //Création d'un nouvel objet User
-    //     $user = new User;
+    //L'index de TOUTES les demandes de congés 
+    #[Route('/users/conges', name: 'app_users_conges')]
+    /**
+     * @Security("is_granted('ROLE_ADMIN')", message="Vous n'êtes pas autorisé(e) à accéder à cette page")
+     */
+    // A FAIRE ENTITY + REPOSITORY CONGES ET LES FAIRE APPARAITRE ICI ET TEMPLATE TABLEAU
+    // public function demandeConges(CongesRepository $repo, Request $request, EntityManagerInterface $em): Response
+    public function demandeConges(): Response
+    { 
+    // par défaut retourne la liste de toutes les demandes de congés triées par date d’arrivée descendante.
+    return $this->render('users/conges.html.twig');
+    // return $this->render('users/conges.html.twig', [
+    //     'users' => $repo->findBy(['dateSortie' => null], ['dateEntree' => 'desc']),
+    // ]);
+    }
 
-    //     $form = $this->createForm(NewUserType::class, $user);
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) { 
-    //         $em->persist($user);
-    //         $em->flush();
-    //         return $this-> redirectToRoute('app_users');
-    //     }
-    //     return $this->render('users/addUser.html.twig', [
-    //         'monForm' => $form->createView(),
-    //     ]);
-    // }
+    //Création d'un nouveau salarié, NON: géré par registrationController
+
 }
